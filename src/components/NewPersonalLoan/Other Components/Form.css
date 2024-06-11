@@ -1,0 +1,12 @@
+
+.container{
+    transition: transform 0.30s ease;
+}
+
+.container.transitioning{
+    transform: translateX(-100%);
+  }
+
+.textBox{
+    border-color: #3e2780;
+}

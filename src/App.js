@@ -38,8 +38,8 @@ import Dialogbox from './components/CreditCard/Dialogbox';
 import ListPage from './components/CreditCard/ListPage';
 import LoaderPage from './components/CreditCard/LoaderPage';
 import SecondFormPage from './components/CreditCard/SecondFormPage';
-
-
+import MainComponent from './components/NewPersonalLoan/MainComponent';
+import BankName from './components/NewPersonalLoan/Other Components/BankName';
 function App() {
   return (
     <>
@@ -87,7 +87,13 @@ function App() {
         <Route path='/loaderpage' element={<LoaderPage/>}/>
         <Route path='/list' element={<ListPage/>}/>
         <Route path='/dialogb' element={<Dialogbox/>}/>
+
+        {/* Here We will add the routing for NewPersonalLoan Pages */}
+
+        <Route path='/NewPersonalLoan' element={<MainComponent/>}/>
+        <Route path='/NewPersonalLoan/bankname' element={<BankName/>}/>
        
+        {/* Routing for New Personal Loan ends here*/}
 
         </Routes>
         </UserProvider>
