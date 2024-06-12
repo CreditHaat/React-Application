@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './OTPVerification.css';
 import { type } from '@testing-library/user-event/dist/type';
 
-function OTPVerification({verifyOTP}) {
+function OTPVerification({verifyOTP, upotp,handleOtpChange}) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
 
   const handleChange = (element, index) => {
@@ -56,6 +56,8 @@ function OTPVerification({verifyOTP}) {
           {/* Instead of a regular button, use Link for redirection 
           <Link to="/NewPersonalLoan/AddInfo" className="verify-button">Verify</Link>
         </div> */}
+
+          {handleOtpChange(otp.join(''))}
 
         <button onClick={verifyOTP} className="button-container verify-button" >Verify</button>
 

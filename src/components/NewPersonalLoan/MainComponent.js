@@ -21,6 +21,11 @@ function MainComponent() {
     const [showLendersList, setShowLendersList] = useState(false);
     const [showBankNames, setShowBankNames] = useState(false);
 
+    const [stgOneHitId, setStgOneHitId] = useState(null);
+    const [stgTwoHitId, setstgTwoHitId] = useState(null);
+    const [t_experian_log_id, sett_experian_log_id] = useState(null);
+    const [upotp,setUpotp]=useState('');
+
     /*--------------------------------HERE WE WILL CREATE A USESTATES FOR SENDIND THE FORM DATA TO BACKEND-------------------*/
 
     const [formData, setFormData] = useState({});
@@ -66,6 +71,16 @@ function MainComponent() {
 
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}chfronetendotpgenerator`,formData1);
 
+            if(response.data.code === 0){
+      
+                setStgOneHitId(response.data.obj.stgOneHitId);
+                setstgTwoHitId(response.data.obj.stgTwoHitId);
+                sett_experian_log_id(response.data.obj.t_experian_log_id);
+                
+            }
+
+            console.log(response);
+
             if (response.status === 200) {
                 console.log('Submission successful:', response.data);
             } else {
@@ -76,7 +91,41 @@ function MainComponent() {
         }
     };
 
-    const handleOTPVerification = () => {
+    const verify_otp_credithaat_from_backend = async (e) => {
+        e.preventDefault();
+        try {
+            const formData1=new FormData();
+            formData1.append('mobileNumber', formData.mobileNumber);
+            formData1.append('otp', upotp);
+            formData1.append('stgOneHitId',stgOneHitId);
+            formData1.append('stgTwoHitId',stgTwoHitId);
+            formData1.append('t_experian_log_id',t_experian_log_id);
+
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}verifyOTP`,formData1);
+
+            if(response.data.code === 0){
+                
+            }
+
+            console.log(response);
+
+            if (response.status === 200) {
+                console.log('Submission successful:', response.data);
+            } else {
+                console.error('Submission failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    };
+
+    const handleOtpChange = (newValue) =>{
+        setUpotp(newValue);
+    };
+
+    const handleOTPVerification = (e) => {
+        console.log(upotp+'call');
+        verify_otp_credithaat_from_backend(e);
         setShowOTPVerification(false);
         setShowAddInfo(true);
       };
@@ -117,7 +166,7 @@ function MainComponent() {
             <div className={styles.lowerDiv}>
             <div className={`container ${isTransitioning ? 'transitioning' : ''}`}>
             {showForm && <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} />}
-            {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} />}
+            {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange}/>}
             {showAddInfo && <AddInfo goToLendersList={handleAddInfo} />}
             {showLendersList && <LendersList onGetLoan={handleOnGetLoan}/>}
             {showBankNames && <BankName/>} 
