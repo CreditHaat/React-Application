@@ -5,6 +5,7 @@ import happyImage from '../NewPersonalLoanImages/happy image3.png'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { FaArrowLeft } from 'react-icons/fa';
 import AddInfoPageImage from '../NewPersonalLoanImages/AddInfoPageImage.png';
+import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImg.png';
 import './AddInfo.css';
 
 function AddInfo({ goToLendersList }) {
@@ -112,7 +113,7 @@ function AddInfo({ goToLendersList }) {
 
                                         <img
                                             // src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/site-banner-ladypic.png"
-                                            src={AddInfoPageImage}
+                                            src={AddInfoPageImg}
                                             className="figure-img img-fluid banner_img"
                                             alt="..."
                                             
@@ -143,7 +144,7 @@ function AddInfo({ goToLendersList }) {
 
 
                                         <div className="input-group mb-5">
-                                            <input type="text" className="form-control textBox" placeholder="Enter Your Monthly Income (अपनी मासिक आय दर्ज करें)" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
+                                            <input type="number" className="form-control textBox" placeholder="Enter Your Monthly Income (अपनी मासिक आय दर्ज करें)" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
                                                 value={income}
                                                 onChange={(e) => setIncome(e.target.value)}
                                             />

@@ -1,69 +1,166 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import React, { useState, useEffect } from 'react';
 import './OTPVerification.css';
-import { type } from '@testing-library/user-event/dist/type';
 
-function OTPVerification({verifyOTP, upotp,handleOtpChange}) {
+function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
 
-  const handleChange = (element, index) => {
-    if (isNaN(element.value)) return false;
+  const handleChange = (e, index) => {
+    const value = e.target.value;
 
-    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+    // If backspace is pressed or input is numeric
+    if (e.keyCode === 8 || !isNaN(value)) {
+      let newOtp = [...otp];
 
-    // Focus next input
-    if (element.nextSibling) {
-      element.nextSibling.focus();
+      // If backspace is pressed and the input field is empty
+      if (e.keyCode === 8 && value === "" && index !== 0) {
+        // Move focus to previous input field
+        document.getElementsByName("otp")[index - 1].focus();
+        // Clear the value of current input field
+        newOtp[index - 1] = "";
+      } else if (index >= 0 && index < 6) {
+        // If input is numeric and index is within range
+        newOtp[index] = value;
+        // Move focus to next input field
+        if (index < 5 && value !== "") {
+          document.getElementsByName("otp")[index + 1].focus();
+        }
+      }
+
+      setOtp(newOtp);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('OTP submitted: ' + otp.join(""));
+    const enteredOTP = otp.join("");
+
+    alert('OTP submitted: ' + enteredOTP);
+
     // Check OTP here and redirect if successful
-    // For demonstration, let's assume OTP verification is successful
-    // Replace the condition with your actual OTP verification logic
-    if (otp.join("") === "123456") {
-      // Redirect to AddInfo.js upon successful OTP verification
-      window.location.href = '/add-info'; // You can use <Link> component if within BrowserRouter
+    if (enteredOTP === "123456") {
+      window.location.href = '/add-info'; // Redirect upon successful OTP verification
     }
   };
 
+    const resetOtp = () => {
+    setOtp(new Array(6).fill(""));
+  };
+
+  useEffect(() => {
+        if (otpStatus === "Incorrect OTP! Try Again..") {
+          resetOtp();
+        }
+      }, [otpStatus]);
+
   return (
     <div className="otp-container">
-      <h2>Fill OTP (ओटीपी भरें)</h2>
-      <p className="terms-text">
-          Please enter the 6 digit code sent to your mobile number for verification.
-          <br></br>कृपया सत्यापन के लिए आपके मोबाइल नंबर पर भेजा गया 6 अंकों का कोड दर्ज करें।
-        </p>
-      <form onSubmit={handleSubmit}>
-        <div className="otp-inputs">
-          {otp.map((data, index) => {
-            return (
-              <input
-                type="text"
-                name="otp"
-                maxLength="1"
-                key={index}
-                value={data}
-                onChange={(e) => handleChange(e.target, index)}
-                onFocus={(e) => e.target.select()}
-              />
-            );
-          })}
+      <h2>Fill OTP</h2>
+      <h4 style={{paddingLeft:'0px'}} className="terms-text">Please enter the 6 digit code sent <br></br>to your mobile number for verification.</h4>
+      <form style={{textAlign:'center'}} onSubmit={handleSubmit}>
+        <div style={{textAlign:'center'}} className="otp-inputs">
+          {otp.map((data, index) => (
+            <input
+              type="number"
+              name="otp"
+              maxLength="1"
+              key={index}
+              value={data}
+              onChange={(e) => handleChange(e, index)}
+              onKeyDown={(e) => handleChange(e, index)}
+            />
+          ))}
         </div>
-        {/* <div className="button-container">
-          {/* Instead of a regular button, use Link for redirection 
-          <Link to="/NewPersonalLoan/AddInfo" className="verify-button">Verify</Link>
-        </div> */}
 
-          {handleOtpChange(otp.join(''))}
+            {handleOtpChange(otp.join(''))}
+            <p style={{color:'red', textAlign:'center'}}>{otpStatus}</p>
 
-        <button onClick={verifyOTP} className="button-container verify-button" >Verify</button>
-
+        <button  onClick={verifyOTP} className="verify-button">Verify</button>
       </form>
     </div>
   );
 }
 
 export default OTPVerification;
+
+// import React, { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+// import './OTPVerification.css';
+// import { type } from '@testing-library/user-event/dist/type';
+
+// function OTPVerification({verifyOTP, upotp,handleOtpChange, otpStatus}) {
+//   const [otp, setOtp] = useState(new Array(6).fill(""));
+
+//   const handleChange = (element, index) => {
+//     if (isNaN(element.value)) return false;
+
+//     setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+
+//     // Focus next input
+//     if (element.nextSibling) {
+//       element.nextSibling.focus();
+//     }
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     alert('OTP submitted: ' + otp.join(""));
+//     // Check OTP here and redirect if successful
+//     // For demonstration, let's assume OTP verification is successful
+//     // Replace the condition with your actual OTP verification logic
+//     if (otp.join("") === "123456") {
+//       // Redirect to AddInfo.js upon successful OTP verification
+//       window.location.href = '/add-info'; // You can use <Link> component if within BrowserRouter
+//     }
+//   };
+
+//   const resetOtp = () => {
+//     setOtp(new Array(6).fill(""));
+//   };
+
+//   useEffect(() => {
+//     if (otpStatus === "Incorrect OTP! Try Again..") {
+//       resetOtp();
+//     }
+//   }, [otpStatus]);
+//   return (
+//     <div className="otp-container">
+//       <h2>Fill OTP (ओटीपी भरें)</h2>
+//       <p className="terms-text">
+//           Please enter the 6 digit code sent to your mobile number for verification.
+//           <br></br>कृपया सत्यापन के लिए आपके मोबाइल नंबर पर भेजा गया 6 अंकों का कोड दर्ज करें।
+//         </p>
+//       <form onSubmit={handleSubmit}>
+//         <div className="otp-inputs">
+//           {otp.map((data, index) => {
+//             return (
+//               <input
+//                 type="text"
+//                 name="otp"
+//                 maxLength="1"
+//                 key={index}
+//                 value={data}
+//                 onChange={(e) => handleChange(e.target, index)}
+//                 onFocus={(e) => e.target.select()}
+//                 onKeyDown={(e)=>handleChange(e,index)}
+//               />
+//             );
+//           })}
+//         </div>
+//         {/* <div className="button-container">
+//           {/* Instead of a regular button, use Link for redirection 
+//           <Link to="/NewPersonalLoan/AddInfo" className="verify-button">Verify</Link>
+//         </div> */}
+
+//           {handleOtpChange(otp.join(''))}
+//           <p style={{color:'red', textAlign:'center'}}>{otpStatus}</p>
+          
+
+//         <button onClick={verifyOTP} className="button-container verify-button" >Verify</button>
+
+//       </form>
+
+//     </div>
+//   );
+// }
+
+// export default OTPVerification;

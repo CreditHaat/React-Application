@@ -10,6 +10,10 @@ import AddInfo from "./Other Components/AddInfo";
 import LendersList from './Other Components/LendersList';
 import BankName from "./Other Components/BankName";
 import {  useLocation, useNavigate } from 'react-router-dom';
+import Footer from '../Footer';
+import KeyPartners from "./Other Components/KeyPartners";
+import Review from "./Other Components/Review";
+import LendingPartners from './Other Components/LendingPartners'
 
 function MainComponent() {
     // Usestates for maintaining the single page application without refreshing the page
@@ -25,6 +29,7 @@ function MainComponent() {
     const [stgTwoHitId, setstgTwoHitId] = useState(null);
     const [t_experian_log_id, sett_experian_log_id] = useState(null);
     const [upotp,setUpotp]=useState('');
+    const [otpStatus, setOtpStatus] = useState('');
 
     /*--------------------------------HERE WE WILL CREATE A USESTATES FOR SENDIND THE FORM DATA TO BACKEND-------------------*/
 
@@ -104,7 +109,13 @@ function MainComponent() {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}verifyOTP`,formData1);
 
             if(response.data.code === 0){
-                
+                // setOtpStatus("Loading ...");
+                setShowOTPVerification(false);
+                setShowAddInfo(true);
+            }else{
+
+                console.log("Incorrect OTP");
+                setOtpStatus("Incorrect OTP! Try Again..");
             }
 
             console.log(response);
@@ -126,8 +137,8 @@ function MainComponent() {
     const handleOTPVerification = (e) => {
         console.log(upotp+'call');
         verify_otp_credithaat_from_backend(e);
-        setShowOTPVerification(false);
-        setShowAddInfo(true);
+        // setShowOTPVerification(false); //We will be shifting this two functions into "verify_otp_credithaat_from_backend(e);" this function
+        // setShowAddInfo(true);
       };
 
       const handleAddInfo=()=>{
@@ -141,7 +152,7 @@ function MainComponent() {
       }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) => {//This handle Submit is only for Form Page 
         setIsTransitioning(true); // Start transition animation
         setTimeout(() => {
             setShowForm(false);
@@ -166,11 +177,22 @@ function MainComponent() {
             <div className={styles.lowerDiv}>
             <div className={`container ${isTransitioning ? 'transitioning' : ''}`}>
             {showForm && <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} />}
-            {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange}/>}
+            {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange} otpStatus={otpStatus}/>}
             {showAddInfo && <AddInfo goToLendersList={handleAddInfo} />}
             {showLendersList && <LendersList onGetLoan={handleOnGetLoan}/>}
             {showBankNames && <BankName/>} 
             </div>
+
+            {showAddInfo && <Review />}
+            {showForm && <Review />}
+
+            {showForm && <LendingPartners/>}
+            {showForm && <KeyPartners/>}
+                
+
+                {showAddInfo && <Footer />}
+                {showForm && <Footer />}
+
             </div>
         </>
     );
