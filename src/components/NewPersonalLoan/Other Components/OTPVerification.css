@@ -69,9 +69,9 @@
     margin-top: 50px;
   }
   
-  .verify-button:disabled {
+  /* .verify-button:disabled {
     background-color: #ccc;
-  }
+  } */
   
   .text-otp {
     padding-left: 110px;

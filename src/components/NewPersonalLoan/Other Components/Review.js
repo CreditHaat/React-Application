@@ -3,7 +3,7 @@ import React from "react";
 function Review(){
     return(
         <>
-            <section class="user-review_section">
+            <section class="user-review_section" style={{marginTop:'0px',backgroundColor:'#ffffff'}}>
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-md-6">

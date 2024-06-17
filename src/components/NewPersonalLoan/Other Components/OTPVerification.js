@@ -74,7 +74,7 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
             {handleOtpChange(otp.join(''))}
             <p style={{color:'red', textAlign:'center'}}>{otpStatus}</p>
 
-        <button  onClick={verifyOTP} className="verify-button">Verify</button>
+        <button  onClick={verifyOTP} className="button-container  verify-button">Verify</button>
       </form>
     </div>
   );

@@ -136,7 +136,7 @@ function MainComponent() {
 
     const handleOTPVerification = (e) => {
         console.log(upotp+'call');
-        verify_otp_credithaat_from_backend(e);
+        // verify_otp_credithaat_from_backend(e);
         // setShowOTPVerification(false); //We will be shifting this two functions into "verify_otp_credithaat_from_backend(e);" this function
         // setShowAddInfo(true);
       };
@@ -186,12 +186,13 @@ function MainComponent() {
             {showAddInfo && <Review />}
             {showForm && <Review />}
 
+<div style={{marginBottom:'10px'}}>
             {showForm && <LendingPartners/>}
             {showForm && <KeyPartners/>}
-                
+                </div>
 
-                {showAddInfo && <Footer />}
-                {showForm && <Footer />}
+                {/* {showAddInfo && <Footer />}
+                {showForm && <Footer />} */}
 
             </div>
         </>

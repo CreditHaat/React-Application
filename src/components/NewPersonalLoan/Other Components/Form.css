@@ -7,6 +7,10 @@
     transform: translateX(-100%);
   }
 
-.textBox{
+/* .textBox{
     border-color: #3e2780;
+} */
+
+.mb-5 {
+    margin-bottom: 2rem !important;
 }

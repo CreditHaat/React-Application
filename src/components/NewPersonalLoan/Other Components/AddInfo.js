@@ -5,8 +5,9 @@ import happyImage from '../NewPersonalLoanImages/happy image3.png'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { FaArrowLeft } from 'react-icons/fa';
 import AddInfoPageImage from '../NewPersonalLoanImages/AddInfoPageImage.png';
-import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImg.png';
+// import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImg.png';
 import './AddInfo.css';
+import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageGirlImage.png';
 
 function AddInfo({ goToLendersList }) {
 
@@ -20,12 +21,14 @@ function AddInfo({ goToLendersList }) {
     const [errorMessage, setErrorMessage] = useState(''); // State to track error message
 
     useEffect(() => {
-        if (profession && income && salaryType && parseInt(income) >= 10000) {
-            setErrorMessage('');
-            setStep(2);
-        } else if (profession && income && salaryType) {
-            setErrorMessage('You are not eligible. Income should be 10,000 or greater.');
+        // Adjusted logic to prevent premature step change on income field change
+        let timer;
+        if (income && parseInt(income) >= 10000 && profession && salaryType) {
+            timer = setTimeout(() => {
+                setStep(2);
+            }, 500); // Adjust delay as needed
         }
+        return () => clearTimeout(timer); // Cleanup on unmount or change
     }, [profession, income, salaryType]);
 
     useEffect(() => {
@@ -69,6 +72,56 @@ function AddInfo({ goToLendersList }) {
     const prevStep = () => {
         if (step > 1) {
             setStep(step - 1);
+        }
+    };
+
+    const handleInputChange = (value, fieldName) => {
+        // Check if the previous field is filled before accepting input for the current field
+        switch (fieldName) {
+            case 'income':
+                if (!profession) {
+                    setErrorMessage('Please fill the profession field first.');
+                    return;
+                }
+                break;
+            case 'salaryType':
+                if (!income) {
+                    setErrorMessage('Please fill the income field first.');
+                    return;
+                }
+                break;
+                case 'pincode':
+                    if (!email) {
+                        setErrorMessage('Please fill the email field first.');
+                        return;
+                    }
+                    break;
+            default:
+                break;
+        }
+
+        // If previous field is filled, update the state and clear error message
+        switch (fieldName) {
+            case 'profession':
+                setProfession(value);
+                setErrorMessage('');
+                break;
+            case 'income':
+                setIncome(value);
+                setErrorMessage('');
+                break;
+            case 'salaryType':
+                setSalaryType(value);
+                setErrorMessage('');
+                break;
+                case 'email':
+                    setEmail(value);
+                    break;
+                case 'pincode':
+                    setPincode(value);
+                    break;           
+            default:
+                break;
         }
     };
 
@@ -132,7 +185,7 @@ function AddInfo({ goToLendersList }) {
                                         <div className="input-group mb-5">
                                             <select className="form-select textBox" aria-label="First Name" aria-describedby="first-name-icon"
                                                 value={profession}
-                                                onChange={(e) => setProfession(e.target.value)}
+                                                onChange={(e) => handleInputChange(e.target.value, 'profession')}
                                             >
                                                 <option value="">Select Your Profession (अपना पेशा चुनें)</option>
                                                 <option value="Salaried">Salaried</option>
@@ -146,7 +199,7 @@ function AddInfo({ goToLendersList }) {
                                         <div className="input-group mb-5">
                                             <input type="number" className="form-control textBox" placeholder="Enter Your Monthly Income (अपनी मासिक आय दर्ज करें)" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
                                                 value={income}
-                                                onChange={(e) => setIncome(e.target.value)}
+                                                onChange={(e) => handleInputChange(e.target.value, 'income')}
                                             />
 
                                         </div>
@@ -154,7 +207,7 @@ function AddInfo({ goToLendersList }) {
                                         <div className="input-group mb-2">
                                             <select className="form-select textBox" aria-label="First Name" aria-describedby="first-name-icon"
                                                 value={salaryType}
-                                                onChange={(e) => setSalaryType(e.target.value)}
+                                                onChange={(e) => handleInputChange(e.target.value, 'salaryType')}
                                             >
                                                 <option value="">Select Your Salary Type (अपना वेतन प्रकार चुनें)</option>
                                                 <option value="cash">Cash</option>
@@ -180,7 +233,7 @@ function AddInfo({ goToLendersList }) {
                                         <div className="input-group mb-5">
                                             <input type="email"  placeholder="Enter Your Email (अपना ईमेल दर्ज करें)" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
                                                 value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
+                                                onChange={(e) => handleInputChange(e.target.value, 'email')}
                                             />
 
                                         </div>
@@ -188,7 +241,8 @@ function AddInfo({ goToLendersList }) {
                                         <div className="input-group mb-5">
                                             <input type="number"  placeholder="Enter Your Office Pincode (अपना पिनकोड दर्ज करें)" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
                                                 value={pincode}
-                                                onChange={(e) => setPincode(e.target.value)}
+                                                onChange={(e) => handleInputChange(e.target.value, 'pincode')}
+                                                
                                             />
 
                                         </div>
@@ -206,7 +260,7 @@ function AddInfo({ goToLendersList }) {
                             <span className={`dot ${step === 2 ? 'active' : ''}`}></span>
                         </div>
                         {step > 1 && <FaArrowLeft className="arrow-left" onClick={prevStep} />}
-
+                        {errorMessage && <div className="text-danger">{errorMessage}</div>}
                     </div>
 
 
