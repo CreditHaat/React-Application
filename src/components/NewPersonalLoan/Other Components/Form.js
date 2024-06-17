@@ -92,7 +92,7 @@ function FormPage({ formData, handleChange, onSubmit }) {
                                     {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
                                 </div>
                                 <div className="input-group mb-2" style={{ border: '1px solid #3e2780', borderRadius: '5px' }}>
-                                    <input type="text" className={`form-control textBox ${errors.mobileNumber ? 'is-invalid' : ''}`} placeholder="Mobile Number" aria-label="Mobile Number" aria-describedby="mobile-number-icon" name="mobileNumber" value={formData.mobileNumber || ''} onChange={handleChange} />
+                                    <input type="number" className={`form-control textBox ${errors.mobileNumber ? 'is-invalid' : ''}`} placeholder="Mobile Number" aria-label="Mobile Number" aria-describedby="mobile-number-icon" name="mobileNumber" value={formData.mobileNumber || ''} onChange={handleChange} />
                                     <span className="input-group-text" id="mobile-number-icon"><i className="bi bi-phone"></i></span>
                                     {errors.mobileNumber && <div className="invalid-feedback">{errors.mobileNumber}</div>}
                                 </div>
