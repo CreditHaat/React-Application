@@ -38,6 +38,12 @@ function MainComponent() {
 
     const [formData, setFormData] = useState({});
 
+    // const [addInfoData, setAddInfoData] = useState(new AddInfoData())
+
+    const [profession, setProfession] = useState('');
+    const [income, setIncome] = useState('');
+    const [salaryType, setSalaryType] = useState('');
+
     const location=useLocation();
 
     /*-----------------------------FORM DATA TRANSFER END*-------------------------------------------------------------------*/
@@ -133,15 +139,57 @@ function MainComponent() {
         }
     };
 
+    const handleAddInfoFormSubmit = async (e, profession, income, salaryType) => {
+        e.preventDefault();
+        try {
+
+            console.log("Tejas ",profession);
+            console.log(income);
+            console.log(salaryType);
+
+
+
+            const formData1=new FormData();
+            formData1.append('mobileNumber', formData.mobileNumber);
+            formData1.append('profession', formData.profession);
+            formData1.append('income', formData.income);
+            formData1.append('salaryType', formData.salaryType);
+            // formData1.append('t_experian_log_id',t_experian_log_id);
+
+
+            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}chfronetendotpgenerator`, formData1, {
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            // });
+
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}secondpageNewpersonalloan`,formData1);
+
+            if(response.data.code === 0){
+                
+            }
+
+            console.log(response);
+
+            if (response.status === 200) {
+                console.log('Submission successful:', response.data);
+            } else {
+                console.error('Submission failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    };
+
     const handleOtpChange = (newValue) =>{
         setUpotp(newValue);
     };
 
     const handleOTPVerification = (e) => {
-        console.log(upotp+'call');
-        verify_otp_credithaat_from_backend(e);
-        // setShowOTPVerification(false); //We will be shifting this two functions into "verify_otp_credithaat_from_backend(e);" this function
-        // setShowAddInfo(true);
+        // console.log(upotp+'call');
+        // verify_otp_credithaat_from_backend(e);
+        setShowOTPVerification(false); //We will be shifting this two functions into "verify_otp_credithaat_from_backend(e);" this function
+        setShowAddInfo(true);
       };
 
       const handleAddInfo=()=>{
@@ -181,7 +229,7 @@ function MainComponent() {
             <div className={`container ${isTransitioning ? 'transitioning' : ''}`}>
             {showForm && <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} />}
             {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange} otpStatus={otpStatus}/>}
-            {showAddInfo && <AddInfo goToLendersList={handleAddInfo} />}
+            {showAddInfo && <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} profession1={profession} income1={income} salaryType1={salaryType} setProfession1={setProfession} setIncome1={setIncome} setSalaryType1={setSalaryType} goToLendersList={handleAddInfo} />}
             {showLendersList && <LendersList onGetLoan={handleOnGetLoan}/>}
             {showBankNames && <BankName/>} 
             </div>
