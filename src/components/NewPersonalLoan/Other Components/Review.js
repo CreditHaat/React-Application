@@ -7,7 +7,28 @@ function Review(){
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <div class="reviw-snap">
+
+                            <div class="reviw-snap_main">What our users have to say</div>
+                                <div class="reviw-snap_disc">
+                                    <p>Thousands have already Successfully used CreditHaat and they have a lot of nice things to say about us</p>
+                                </div>
+                                <div class="reviw-snap_cont">
+                                    <p>I needed funds to deal with an emergency. With CreditHaat I received money in my account within minutes.</p>
+                                </div>
+                                <div class="reviw-profile_card">
+                                    <div class="reviw-profile_card-img">
+                                        <img src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/Santosh.jpeg" style={{ height: '60px', width: '60px' }} />
+                                    </div>
+                                    <div class="reviw-profile_name">
+                                        <h6> Santosh </h6>
+                                        <div class="reviw-profile_work">
+                                            <h6>Business Man</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="reviw-snap">
                                     <div class="reviw-snap_img">
                                         <div class="reviw-profile_card">
                                             <div class="reviw-profile_card-img">
@@ -38,26 +59,6 @@ function Review(){
                                         </div>
                                         <div class="reviw-snap_cont">
                                             <p>CreditHaat’s simple application process helped me find the best loan offer. In addition, their helpful loan executives helped me complete the loan application in no time.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="reviw-snap_main">What our users have to say</div>
-                                <div class="reviw-snap_disc">
-                                    <p>Thousands have already Successfully used CreditHaat and they have a lot of nice things to say about us</p>
-                                </div>
-                                <div class="reviw-snap_cont">
-                                    <p>I needed funds to deal with an emergency. With CreditHaat I received money in my account within minutes.</p>
-                                </div>
-                                <div class="reviw-profile_card">
-                                    <div class="reviw-profile_card-img">
-                                        <img src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/Santosh.jpeg" style={{ height: '60px', width: '60px' }} />
-                                    </div>
-                                    <div class="reviw-profile_name">
-                                        <h6> Santosh </h6>
-                                        <div class="reviw-profile_work">
-                                            <h6>Business Man</h6>
                                         </div>
                                     </div>
                                 </div>

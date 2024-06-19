@@ -14,6 +14,7 @@ import Footer from '../Footer';
 import KeyPartners from "./Other Components/KeyPartners";
 import Review from "./Other Components/Review";
 import LendingPartners from './Other Components/LendingPartners'
+import NewFooter from './Other Components/NewFooter'
 
 function MainComponent() {
     // Usestates for maintaining the single page application without refreshing the page
@@ -195,6 +196,8 @@ function MainComponent() {
                 {showForm && <Footer />} */}
 
             </div>
+
+            {showForm && <NewFooter />}
         </>
     );
 };

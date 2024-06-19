@@ -81,19 +81,19 @@ function FormPage({ formData, handleChange, onSubmit }) {
                     <div className="col-md-6 py-md-5 px-md-5" style={{ justifyContent: "center", alignItems: "center" }}>
                         <div className="row" style={{ display: "flex" }}>
                             <form onSubmit={handleSubmit}>
-                                <div className="input-group mb-5" style={{ border: '1px solid #3e2780', borderRadius: '5px' }}>
-                                    <input type="text" className={`form-control textBox ${errors.firstName ? 'is-invalid' : ''}`} placeholder="First Name" aria-label="First Name" aria-describedby="first-name-icon" name="firstName" value={formData.firstName || ''} onChange={handleChange} />
-                                    <span className="input-group-text" id="first-name-icon"><i className="bi bi-person"></i></span>
+                                <div className="input-group mb-5">
+                                    <input type="text" className={`form-control textBox ${errors.firstName ? 'is-invalid' : ''}`} placeholder="First Name" aria-label="First Name" aria-describedby="first-name-icon" name="firstName" value={formData.firstName || ''} onChange={handleChange} style={{ border: '1px solid #3e2780', borderRadius: '5px',borderRight:'none',borderTopRightRadius:'0px',borderBottomRightRadius:'0px' }} />
+                                    <span className="input-group-text" id="first-name-icon" style={{ border: '1px solid #3e2780', borderRadius: '5px',borderLeft:'none',borderTopLeftRadius:'0px',borderBottomLeftRadius:'0px' }}><i className="bi bi-person"></i></span>
                                     {errors.firstName && <div className="invalid-feedback">{errors.firstName}</div>}
                                 </div>
-                                <div className="input-group mb-5" style={{ border: '1px solid #3e2780', borderRadius: '5px' }}>
-                                    <input type="text" className={`form-control textBox ${errors.lastName ? 'is-invalid' : ''}`} placeholder="Last Name" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName" value={formData.lastName || ''} onChange={handleChange} />
-                                    <span className="input-group-text" id="last-name-icon"><i className="bi bi-person"></i></span>
+                                <div className="input-group mb-5">
+                                    <input type="text" className={`form-control textBox ${errors.lastName ? 'is-invalid' : ''}`} placeholder="Last Name" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName" value={formData.lastName || ''} onChange={handleChange} style={{ border: '1px solid #3e2780', borderRadius: '5px',borderRight:'none',borderTopRightRadius:'0px',borderBottomRightRadius:'0px' }} />
+                                    <span className="input-group-text" id="last-name-icon" style={{ border: '1px solid #3e2780', borderRadius: '5px',borderLeft:'none',borderTopLeftRadius:'0px',borderBottomLeftRadius:'0px' }}><i className="bi bi-person"></i></span>
                                     {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
                                 </div>
-                                <div className="input-group mb-2" style={{ border: '1px solid #3e2780', borderRadius: '5px' }}>
-                                    <input type="number" className={`form-control textBox ${errors.mobileNumber ? 'is-invalid' : ''}`} placeholder="Mobile Number" aria-label="Mobile Number" aria-describedby="mobile-number-icon" name="mobileNumber" value={formData.mobileNumber || ''} onChange={handleChange} />
-                                    <span className="input-group-text" id="mobile-number-icon"><i className="bi bi-phone"></i></span>
+                                <div className="input-group mb-2" >
+                                    <input type="number" className={`form-control textBox ${errors.mobileNumber ? 'is-invalid' : ''}`} placeholder="Mobile Number" aria-label="Mobile Number" aria-describedby="mobile-number-icon" name="mobileNumber" value={formData.mobileNumber || ''} onChange={handleChange} style={{ border: '1px solid #3e2780', borderRadius: '5px',borderRight:'none',borderTopRightRadius:'0px',borderBottomRightRadius:'0px' }} />
+                                    <span className="input-group-text" id="mobile-number-icon" style={{ border: '1px solid #3e2780', borderRadius: '5px',borderLeft:'none',borderTopLeftRadius:'0px',borderBottomLeftRadius:'0px' }} ><i className="bi bi-phone"></i></span>
                                     {errors.mobileNumber && <div className="invalid-feedback">{errors.mobileNumber}</div>}
                                 </div>
                                 <div className="input-group mb-2 text-center">
