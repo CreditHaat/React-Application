@@ -16,7 +16,7 @@ const GridContainer = () => {
       {/* <div className={styles.gridItem}>&#169;2022 CreditHaat.</div> */}
     </div>
     {/* &#169;2022 CreditHaat. */}
-    <div className={styles.gridItem}>&#169;2022 CreditHaat.</div>
+    <div className={styles.gridItem}>&#169;2024 CreditHaat.</div>
     </footer>
     
   );

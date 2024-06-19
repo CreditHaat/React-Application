@@ -14,7 +14,9 @@ import Footer from '../Footer';
 import KeyPartners from "./Other Components/KeyPartners";
 import Review from "./Other Components/Review";
 import LendingPartners from './Other Components/LendingPartners'
-import NewFooter from './Other Components/NewFooter'
+// import GridContainer from "./Other Components/NewFooter";
+import NewFooter from "./Other Components/NewFooter";
+import NewKeyPartners from "./Other Components/NewKeyPartners";
 
 function MainComponent() {
     // Usestates for maintaining the single page application without refreshing the page
@@ -184,20 +186,24 @@ function MainComponent() {
             {showBankNames && <BankName/>} 
             </div>
 
-            {showAddInfo && <Review />}
+            {/* {showAddInfo && <Review />} */}
             {showForm && <Review />}
 
 <div style={{marginBottom:'10px'}}>
             {showForm && <LendingPartners/>}
-            {showForm && <KeyPartners/>}
+            {/* {showForm && <KeyPartners/>} */}
+            {showForm && <NewKeyPartners/>}
                 </div>
 
-                {/* {showAddInfo && <Footer />}
-                {showForm && <Footer />} */}
+                {/* {/* {showAddInfo && <Footer />} */}
+                {/* {showForm && <Footer />} */}
 
             </div>
 
-            {showForm && <NewFooter />}
+             {showForm && <NewFooter/>}
+            {showAddInfo && <NewFooter/>} 
+
+            {/* {showForm && <GridContainer/>} */}
         </>
     );
 };

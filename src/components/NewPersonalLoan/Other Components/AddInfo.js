@@ -7,7 +7,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import AddInfoPageImage from '../NewPersonalLoanImages/AddInfoPageImage.png';
 // import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImg.png';
 import './AddInfo.css';
-import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageGirlImage.png';
+import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImage.png';
 
 function AddInfo({ goToLendersList }) {
 
@@ -49,7 +49,7 @@ function AddInfo({ goToLendersList }) {
         }
     }, [pincode]);
 
-
+    
 
     useEffect(() => {
         if (email && pincode && !errorMessage && pincode.length === 6) {
@@ -64,7 +64,7 @@ function AddInfo({ goToLendersList }) {
     const handleTouchEnd = (e) => {
         const endX = e.changedTouches[0].clientX;
         const deltaX = endX - touchStartX;
-        if (deltaX < -50 && step < 2 && profession && income && salaryType && parseInt(income) >= 10000) {
+        if (deltaX < -50 && step < 2 && profession && income && salaryType && parseInt(income) >= 0) {
             setStep(step + 1); // Swipe left to go forward
         }
     };
@@ -79,18 +79,24 @@ function AddInfo({ goToLendersList }) {
         // Check if the previous field is filled before accepting input for the current field
         switch (fieldName) {
             case 'income':
+
                 if (!profession) {
                     setErrorMessage('Please fill the profession field first.');
                     return;
                 }
                 break;
+            
+                
             case 'salaryType':
-                if (!income) {
-                    setErrorMessage('Please fill the income field first.');
+                if (!income || parseInt(income) < 0) {
+                    setErrorMessage('Please fill the income field first...');
                     return;
                 }
+                setSalaryType(value);
+                setErrorMessage('');
                 break;
-                case 'pincode':
+
+            case 'pincode':
                     if (!email) {
                         setErrorMessage('Please fill the email field first.');
                         return;
@@ -127,42 +133,11 @@ function AddInfo({ goToLendersList }) {
 
     return (
         <>
-            <section className="container banner">
+            <section className="container banner" style={{borderRadius: '20px', marginTop: '10px', backgroundColor: '#f2edff' }}>
                 <div className="row py-md-5 px-md-5" style={{ display: "flex" }}>
                     <div className="col-md-6">
                         <div className="row" style={{ display: "flex" }}>
-                            {/* < div className="col-md-12" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <div className="" style={{ width: "49%", float: "left" }}>
-                                    <h1
-                                        class="banner_title"
-                                        style={{
-                                            fontFamily: "'Noto Sans'",
-                                            fontWeight: "500",
-                                            margin: "auto"
-                                        }}
-                                    >
-                                        Start your loan <br /> process by <br /> filling your <br /> details.....
-                                    </h1>
-                                </div>
-
-                                <div className="text-center" style={{ width: "49%", float: "right" }}>
-                                    <figure className="figure">
-                                        <img
-                                            // src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/site-banner-ladypic.png"
-                                            src={happyImage}
-                                            className="figure-img img-fluid banner_img"
-                                            alt="..."
-                                            style={{
-                                                height: "auto",
-                                                width: "100%",
-                                                maxWidth: "300px",
-                                                margin: "0 auto 1rem",
-                                            }}
-                                        />
-                                    </figure>
-                                </div>
-
-                            </div> */}
+                            
 
                                         <img
                                             // src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/site-banner-ladypic.png"
@@ -259,8 +234,9 @@ function AddInfo({ goToLendersList }) {
                             <span className={`dot ${step === 1 ? 'active' : ''}`}></span>
                             <span className={`dot ${step === 2 ? 'active' : ''}`}></span>
                         </div>
-                        {step > 1 && <FaArrowLeft className="arrow-left" onClick={prevStep} />}
                         {errorMessage && <div className="text-danger">{errorMessage}</div>}
+                        {step > 1 && <FaArrowLeft className="arrow-left" style={{marginBottom:'30px'}} onClick={prevStep} />}
+                        
                     </div>
 
 
