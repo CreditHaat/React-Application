@@ -139,7 +139,7 @@ function MainComponent() {
         }
     };
 
-    const handleAddInfoFormSubmit = async (e, profession, income, salaryType) => {
+    const handleAddInfoFormSubmit = async (e) => {
         e.preventDefault();
         try {
 
@@ -151,9 +151,9 @@ function MainComponent() {
 
             const formData1=new FormData();
             formData1.append('mobileNumber', formData.mobileNumber);
-            formData1.append('profession', formData.profession);
-            formData1.append('income', formData.income);
-            formData1.append('salaryType', formData.salaryType);
+            formData1.append('profession', profession);
+            formData1.append('income', income);
+            formData1.append('salaryType', salaryType);
             // formData1.append('t_experian_log_id',t_experian_log_id);
 
 
