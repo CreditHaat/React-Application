@@ -27,8 +27,21 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
       }
 
       setOtp(newOtp);
+
+      //This code is for automatically rendering next page when otp is verified from backend
+
+      // const enteredOTP = newOtp.join("");
+      // if (enteredOTP.length === 6) {
+      //   // Check if entered OTP is correct (for demonstration purposes)
+      //   verifyOTP();
+      // }
+
+      //-------------------------------------------------------------------------------
+    
     }
   };
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,9 +50,9 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
     alert('OTP submitted: ' + enteredOTP);
 
     // Check OTP here and redirect if successful
-    if (enteredOTP === "123456") {
-      window.location.href = '/add-info'; // Redirect upon successful OTP verification
-    }
+    // if (enteredOTP === "123456") {
+    //   window.location.href = '/add-info'; // Redirect upon successful OTP verification
+    // }
   };
 
     const resetOtp = () => {

@@ -9,7 +9,7 @@ import AddInfoPageImage from '../NewPersonalLoanImages/AddInfoPageImage.png';
 import './AddInfo.css';
 import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImage.png';
 
-function AddInfo({ handleAddInfoFormSubmit ,profession1, income1, salaryType1, setProfession1, setIncome1, setSalaryType1, goToLendersList }) {
+function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, profession1, income1, salaryType1, setProfession1, setIncome1, setSalaryType1, email1, pincode1, setEmail1, setPincode1, goToLendersList }) {
 
     const [step, setStep] = useState(1); // State to track the current step
     const [profession, setProfession] = useState('');
@@ -23,7 +23,7 @@ function AddInfo({ handleAddInfoFormSubmit ,profession1, income1, salaryType1, s
     useEffect(() => {
         // Adjusted logic to prevent premature step change on income field change
         let timer;
-        if (income && parseInt(income) >= 10000 && profession && salaryType) {
+        if (income && parseInt(income) >= 0 && profession && salaryType) {
             timer = setTimeout(() => {
                 const syntheticEvent = {
                     preventDefault: () => {},
@@ -58,6 +58,12 @@ function AddInfo({ handleAddInfoFormSubmit ,profession1, income1, salaryType1, s
 
     useEffect(() => {
         if (email && pincode && !errorMessage && pincode.length === 6) {
+            const syntheticEvent = {
+                preventDefault: () => {},
+                // Add other properties as needed
+            };
+            handleAddInfoFormSubmit2(syntheticEvent);
+            
             goToLendersList(); // Move to next step if email, pincode, and no error
         }
     }, [email, pincode, errorMessage, goToLendersList]);
@@ -94,8 +100,8 @@ function AddInfo({ handleAddInfoFormSubmit ,profession1, income1, salaryType1, s
 
                 
             case 'salaryType':
-                if (!income || parseInt(income) < 0) {
-                    setErrorMessage('Please fill the income field first...');
+                if (!income) {
+                    setErrorMessage('Please fill the income field first and provide valid income');
                     return;
                 }
                 setSalaryType(value);
@@ -146,9 +152,11 @@ function AddInfo({ handleAddInfoFormSubmit ,profession1, income1, salaryType1, s
                 break;
                 case 'email':
                     setEmail(value);
+                    setEmail1(value);
                     break;
                 case 'pincode':
                     setPincode(value);
+                    setPincode1(value);
                     break;           
             default:
                 break;

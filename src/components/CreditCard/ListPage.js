@@ -146,7 +146,7 @@ const ListPage = () => {
 
 <div className="heading-container">
 <h2 className="section heading" style={{fontWeight:'bold'}}>Prepaid Cards</h2>
-</div>   
+</div>
 <div className="card-container" style={{ padding: '50px 0' }}>
   {mydata.data.lender_details.filter(lender => lender.card_type === 0).map((lender, index) => (
     <div key={index} className="card" style={{ margin: '10px', borderRadius: '10px', background: 'linear-gradient(rgb(217 217 217 / 49%), rgb(115 115 115 / 89%))', maxWidth:'400px', maxHeight:'auto', minWidth:'350px',minHeight:'auto'  }}>
