@@ -17,6 +17,7 @@ import LendingPartners from './Other Components/LendingPartners'
 // import GridContainer from "./Other Components/NewFooter";
 import NewFooter from "./Other Components/NewFooter";
 import NewKeyPartners from "./Other Components/NewKeyPartners";
+import Loader from "./Other Components/Toader";
 
 function MainComponent() {
     // Usestates for maintaining the single page application without refreshing the page
@@ -36,6 +37,10 @@ function MainComponent() {
 
     const [lenderDetails, setLenderDetails] = useState([]);
     var json = null;
+
+    const [lenderProduct, setLenderProduct] = useState();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     /*--------------------------------HERE WE WILL CREATE A USESTATES FOR SENDIND THE FORM DATA TO BACKEND-------------------*/
 
@@ -206,7 +211,15 @@ function MainComponent() {
             //     },
             // });
 
+            setIsLoading(true);
+
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}thirdpageNewpersonalloan`, formData1);
+
+            setTimeout(() => {
+                setIsLoading(false);
+              }, 3000);
+
+            
 
             if (response.data.code === 0) {
 
@@ -236,6 +249,7 @@ function MainComponent() {
 
     //We will use this function to call the lendersList from backend
     const getLendersList = async (e) => {
+
         e.preventDefault();
         try {
 
@@ -275,7 +289,9 @@ function MainComponent() {
         console.log('Lender Details in useState : ',lenderDetails);
     },[lenderDetails]);
 
+    //This funtion is used to call the backend on getLoan button
 
+    
     const handleOtpChange = (newValue) => {
         setUpotp(newValue);
     };
@@ -295,9 +311,13 @@ function MainComponent() {
         // setShowLendersList(true);
     }
 
-    const handleOnGetLoan = () => {
-        setShowLendersList(false);
-        showBankNames(true);
+    const handleOnGetLoan = (e) => {
+
+        //Here we will call our function which will go to backend on the click of getLoan button
+        //getLoanBackend(e);
+
+        // setShowLendersList(false);
+        // showBankNames(true);
     }
 
 
@@ -328,7 +348,7 @@ function MainComponent() {
                     {showForm && <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} />}
                     {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange} otpStatus={otpStatus} />}
                     {showAddInfo && <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} handleAddInfoFormSubmit2={handleAddInfoFormSubmit2} profession1={profession} income1={income} salaryType1={salaryType} setProfession1={setProfession} setIncome1={setIncome} setSalaryType1={setSalaryType} email1={email} pincode1={pincode} setEmail1={setEmail} setPincode1={setPincode} goToLendersList={handleAddInfo} />}
-                    {showLendersList && <LendersList json1={lenderDetails} onGetLoan={handleOnGetLoan} />}
+                    {showLendersList && <LendersList json1={lenderDetails} onGetLoan={handleOnGetLoan} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} formData={formData}/>}
                     {showBankNames && <BankName />}
                 </div>
 
@@ -348,6 +368,8 @@ function MainComponent() {
 
             {showForm && <NewFooter />}
             {showAddInfo && <NewFooter />}
+
+            {isLoading && <Loader/>}
 
             {/* {showForm && <GridContainer/>} */}
         </>
