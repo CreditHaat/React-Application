@@ -74,8 +74,9 @@ function KeyPartners() {
             <div className="lenders">
                 <div style={{ marginTop: '15px', loading: "lazy" }}>
                     <div className="brandcontainer" style={{ display: 'flex', height: 'auto', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', margin: '20px' }}>
-                        <div className="brandbox" style={{ width: '80px', height: '80px', margin: '10px', textAlign: 'center' }}>
-                        <img style={{ height: '55px', width: '85px', margin: 'auto', borderRadius: '2px', loading: "lazy" }} src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/LnTFinance.jpeg" alt="L&T" />
+                        {/* <div className="brandbox" style={{ width: '80px', height: '80px', margin: '10px', textAlign: 'center' }}> */}
+                        <div className="brandbox" style={{ margin: '20px' }}>
+                        <img style={{ height: '55px', width: '70px', margin: 'auto', borderRadius: '2px', loading: "lazy" }} src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/LnTFinance.jpeg" alt="L&T" />
                         <p className="brandname" style={{ fontSize: '15px', textAlign: 'center', fontFamily: '', fontWeight: '' }}>L&T</p>
                         </div>
 

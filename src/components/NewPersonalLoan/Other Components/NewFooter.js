@@ -10,9 +10,9 @@ const GridContainer = () => {
 <div className={styles.gridContainer}>
       {/* Grid items (columns) */}
       {/* <div className={styles.gridItem}>All rights reserved</div> */}
-      <div className={styles.gridItem}>Terms of service</div>
-      <div className={styles.gridItem}>Privacy policy</div>
-      <div className={styles.gridItem}>Contact Us</div>
+      <div onClick={() => { window.location.href = "https://www.credithaat.com/tnc" }} className={styles.gridItem}>Terms of service</div>
+      <div onClick={() => { window.location.href = "https://www.credithaat.com/privacy" }} className={styles.gridItem}>Privacy policy</div>
+      <div onClick={() => { window.location.href = "https://www.credithaat.com/support" }} className={styles.gridItem}>Support</div>
       {/* <div className={styles.gridItem}>&#169;2022 CreditHaat.</div> */}
     </div>
     {/* &#169;2022 CreditHaat. */}

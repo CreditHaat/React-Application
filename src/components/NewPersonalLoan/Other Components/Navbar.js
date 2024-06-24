@@ -18,7 +18,7 @@ function Navbar() {
               
           </NavLink>
 
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
+          {/* <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <NavLink
                 exact
@@ -53,20 +53,20 @@ function Navbar() {
               </NavLink>
             </li>
             
-          </ul>
-          <div className="nav-icon" onClick={handleClick}>
-            {/* <i className={click ? "fas fa-times" : "fas fa-bars"}></i> */}
+          </ul> */}
+          {/* <div className="nav-icon" onClick={handleClick}>
+            
 
             {click ? (
-              <span className="icon">
-                <HamburgetMenuClose />{" "}
-              </span>
+              <span className="icon"> */}
+                {/* <HamburgetMenuClose />{" "} */}
+              {/* </span>
             ) : (
               <span className="icon">
-                <HamburgetMenuOpen />
-              </span>
+                <HamburgetMenuOpen /> */}
+              {/* </span>
             )}
-          </div>
+          </div> */}
         </div>
       </nav>
     </>
