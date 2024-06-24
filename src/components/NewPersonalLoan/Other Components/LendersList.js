@@ -34,7 +34,7 @@ const LendersList = ({ json1, onGetLoan, lenderProduct, setLenderProduct,formDat
 
     setlenderName(productname);
 
-    const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}apiExecution`, formData1, {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}apiExecution`, formData1, {
       headers: {
           'Content-Type': 'application/json',
           'token': 'Y3JlZGl0aGFhdHRlc3RzZXJ2ZXI=' // Add your token here
@@ -50,6 +50,8 @@ const LendersList = ({ json1, onGetLoan, lenderProduct, setLenderProduct,formDat
     
 
     if(response.data.code === 0){
+      var redirectionlink = response.data.data.lender_details.applicationlink;
+      setLink(redirectionlink);
       {!setIsLoading && <ApplicationPopup link={link}/>}
     }
 

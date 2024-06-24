@@ -88,13 +88,13 @@ function MainComponent() {
             formData1.append('sub_dsa', subDsa);
 
 
-            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}chfronetendotpgenerator`, formData1, {
+            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL}chfronetendotpgenerator`, formData1, {
             //     headers: {
             //         'Content-Type': 'application/json',
             //     },
             // });
 
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}chfronetendotpgenerator`, formData1);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}chfronetendotpgenerator`, formData1);
 
             if (response.data.code === 0) {
 
@@ -126,7 +126,7 @@ function MainComponent() {
             formData1.append('stgTwoHitId', stgTwoHitId);
             formData1.append('t_experian_log_id', t_experian_log_id);
 
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}verifyOTP`, formData1);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}verifyOTP`, formData1);
 
             if (response.data.code === 0) {
                 // setOtpStatus("Loading ...");
@@ -168,13 +168,13 @@ function MainComponent() {
             // formData1.append('t_experian_log_id',t_experian_log_id);
 
 
-            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}chfronetendotpgenerator`, formData1, {
+            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL}chfronetendotpgenerator`, formData1, {
             //     headers: {
             //         'Content-Type': 'application/json',
             //     },
             // });
 
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}secondpageNewpersonalloan`, formData1);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}secondpageNewpersonalloan`, formData1);
 
             if (response.data.code === 0) {
 
@@ -205,7 +205,7 @@ function MainComponent() {
             // formData1.append('t_experian_log_id',t_experian_log_id);
 
 
-            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}chfronetendotpgenerator`, formData1, {
+            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL}chfronetendotpgenerator`, formData1, {
             //     headers: {
             //         'Content-Type': 'application/json',
             //     },
@@ -213,7 +213,7 @@ function MainComponent() {
 
             setIsLoading(true);
 
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}thirdpageNewpersonalloan`, formData1);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}thirdpageNewpersonalloan`, formData1);
 
             setTimeout(() => {
                 setIsLoading(false);
@@ -256,7 +256,7 @@ function MainComponent() {
             const formData1 = new FormData();
             formData1.append('mobilenumber', formData.mobileNumber);
 
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL1234}lenderslist`, formData1, {
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}lenderslist`, formData1, {
                 headers: {
                     'Content-Type': 'application/json',
                     'token': 'Y3JlZGl0aGFhdHRlc3RzZXJ2ZXI=' // Add your token here
