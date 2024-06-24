@@ -10,6 +10,7 @@ import ltfs from '../NewPersonalLoanImages/ltfs.png';
 import axios from 'axios';
 import ApplicationLoader from './ApplicationLoader';
 import ApplicationPopup from './ApplicationPopup';
+import ErrorPopup from './ErrorPopup';
 
 
 const LendersList = ({ json1, onGetLoan, lenderProduct, setLenderProduct,formData}) => {
@@ -20,6 +21,9 @@ const LendersList = ({ json1, onGetLoan, lenderProduct, setLenderProduct,formDat
   const [link, setLink] = useState("https://www.google.com");
   const [isCameFromBackend, setIsCameFromBackend] = useState();
   const [lenderName, setlenderName] = useState("NA");
+
+  const [errorPopup, setErrorPopup] = useState(false);
+
 
   const getLoanBackend = async (e,productname) => {
 
@@ -45,14 +49,20 @@ const LendersList = ({ json1, onGetLoan, lenderProduct, setLenderProduct,formDat
       setIsLoading(false);
     }, 3000);
 
-    setIsCameFromBackend(true);
+    
 
     
 
     if(response.data.code === 0){
-      var redirectionlink = response.data.data.lender_details.applicationlink;
+      setIsCameFromBackend(true);
+      var redirectionlink = response.data.data.lender_details[0].applicationlink;
       setLink(redirectionlink);
-      {!setIsLoading && <ApplicationPopup link={link}/>}
+      // {!setIsLoading && <ApplicationPopup link={link}/>}
+    }
+
+    if(response.data.code === -1){
+
+      setErrorPopup(true); //This will be true when the code will be -1
     }
 
     console.log("for partner page",response);
@@ -66,7 +76,10 @@ const LendersList = ({ json1, onGetLoan, lenderProduct, setLenderProduct,formDat
 return (
 <>
     {!isLoading && isCameFromBackend && <ApplicationPopup link={link} lenderName={lenderName}/>}
+    {!isLoading && errorPopup && <ErrorPopup setErrorPopup={setErrorPopup} lenderName={lenderName}/>}
     {isLoading && <ApplicationLoader/>}
+
+    {/* {loadLendersList && <LendersList/>} */}
 
     {console.log("FormData : ",formData)}
 
