@@ -425,9 +425,9 @@ const handleVerification = async () => {
    const formData = new FormData();
    formData.append('mobileNumber', userPhoneNumber);
    formData.append('otp', upotp);
-  formData.append('stgOneHitId',stgOneHitId);
-  formData.append('stgTwoHitId',stgTwoHitId);
-  formData.append('t_experian_log_id',t_experian_log_id);
+   formData.append('stgOneHitId',stgOneHitId);
+   formData.append('stgTwoHitId',stgTwoHitId);
+   formData.append('t_experian_log_id',t_experian_log_id);
    
    // Send the OTP verification request to the backend
    const response1 = await axios.post(`${process.env.REACT_APP_BASE_URL}verifyOTP`, formData);
