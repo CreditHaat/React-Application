@@ -3,6 +3,7 @@ import './OTPVerification.css';
 
 function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [tempOtp, setTempOtp] = useState("");
 
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -28,11 +29,16 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
 
       setOtp(newOtp);
 
+      setTempOtp(newOtp.join(""));
+
       //This code is for automatically rendering next page when otp is verified from backend
 
       // const enteredOTP = newOtp.join("");
       // if (enteredOTP.length === 6) {
+        
       //   // Check if entered OTP is correct (for demonstration purposes)
+      //   console.log("entered otp is ---------- ",enteredOTP);
+
       //   verifyOTP();
       // }
 
@@ -40,6 +46,7 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
     
     }
   };
+
 
   
 
@@ -62,9 +69,20 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
   useEffect(() => {
         if (otpStatus === "Incorrect OTP! Try Again..") {
           resetOtp();
-        }
-      }, [otpStatus]);
 
+        }
+      }, [otpStatus]); 
+//We are using this useEffect for calling the otpVarify function when the user enters the otp
+      useEffect(() => {
+        if (upotp.length === 6) {
+          
+          console.log("oTP LENGTH IS : ", upotp.length);
+          verifyOTP();
+          // setTempOtp('');
+
+        }
+      }, [upotp]);
+/////////////////////////////
   return (
     <div className="otp-container">
       <h2>Fill OTP</h2>

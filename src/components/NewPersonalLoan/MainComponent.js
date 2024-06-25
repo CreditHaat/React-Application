@@ -119,7 +119,7 @@ function MainComponent() {
     };
 
     const verify_otp_credithaat_from_backend = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         try {
             const formData1 = new FormData();
             formData1.append('mobileNumber', formData.mobileNumber);
