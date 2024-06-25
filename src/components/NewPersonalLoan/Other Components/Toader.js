@@ -20,7 +20,7 @@ function Loader() {
                 borderRadius: "5px",
                 boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)" // Optional: Box shadow for loader content
             }}>
-                Finding a best Lenders for you!<br/> <center>Please wait...</center>
+                Finding best lenders for you!<br/> <center>Please wait...</center>
             </div>
         </div>
     );

@@ -55,6 +55,8 @@ function MainComponent() {
     const [email, setEmail] = useState('');
     const [pincode, setPincode] = useState('');
 
+    const [companyName, setCompanyName] = useState('');
+
     const location = useLocation();
 
     /*-----------------------------FORM DATA TRANSFER END*-------------------------------------------------------------------*/
@@ -201,6 +203,7 @@ function MainComponent() {
             formData1.append('mobileNumber', formData.mobileNumber);
             formData1.append('email', email);
             formData1.append('pincode', pincode);
+            formData1.append('companyName', companyName);
 
             // formData1.append('t_experian_log_id',t_experian_log_id);
 
@@ -347,7 +350,7 @@ function MainComponent() {
                 <div className={`container ${isTransitioning ? 'transitioning' : ''}`}>
                     {showForm && <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} />}
                     {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange} otpStatus={otpStatus} />}
-                    {showAddInfo && <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} handleAddInfoFormSubmit2={handleAddInfoFormSubmit2} profession1={profession} income1={income} salaryType1={salaryType} setProfession1={setProfession} setIncome1={setIncome} setSalaryType1={setSalaryType} email1={email} pincode1={pincode} setEmail1={setEmail} setPincode1={setPincode} goToLendersList={handleAddInfo} />}
+                    {showAddInfo && <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} handleAddInfoFormSubmit2={handleAddInfoFormSubmit2} profession1={profession} income1={income} salaryType1={salaryType} setProfession1={setProfession} setIncome1={setIncome} setSalaryType1={setSalaryType} email1={email} pincode1={pincode} setEmail1={setEmail} setPincode1={setPincode} companyName1={companyName} setCompnanyName1={setCompanyName} goToLendersList={handleAddInfo} />}
                     {showLendersList && <LendersList json1={lenderDetails} onGetLoan={handleOnGetLoan} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} formData={formData}/>}
                     {showBankNames && <BankName />}
                 </div>
@@ -377,5 +380,3 @@ function MainComponent() {
 };
 
 export default MainComponent;
-
-

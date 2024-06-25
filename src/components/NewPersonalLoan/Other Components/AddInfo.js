@@ -9,7 +9,7 @@ import AddInfoPageImage from '../NewPersonalLoanImages/AddInfoPageImage.png';
 import './AddInfo.css';
 import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImage.png';
 
-function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, profession1, income1, salaryType1, setProfession1, setIncome1, setSalaryType1, email1, pincode1, setEmail1, setPincode1, goToLendersList }) {
+function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, profession1, income1, salaryType1, setProfession1, setIncome1, setSalaryType1, email1, pincode1, setEmail1, setPincode1, companyName1, setCompnanyName1, goToLendersList }) {
 
     const [step, setStep] = useState(1); // State to track the current step
     const [profession, setProfession] = useState('');
@@ -17,6 +17,9 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
     const [salaryType, setSalaryType] = useState('');
     const [email, setEmail] = useState('');
     const [pincode, setPincode] = useState(''); // Set initial state to an empty string
+
+    const [companyName, setCompanyName] = useState('');
+
     const [touchStartX, setTouchStartX] = useState(0); // State to track touch start position
     const [errorMessage, setErrorMessage] = useState(''); // State to track error message
 
@@ -57,7 +60,7 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
     
 
     useEffect(() => {
-        if (email && pincode && !errorMessage && pincode.length === 6) {
+        if (email && pincode && !errorMessage && companyName && pincode.length === 6) {
             const syntheticEvent = {
                 preventDefault: () => {},
                 // Add other properties as needed
@@ -66,7 +69,7 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
             
             goToLendersList(); // Move to next step if email, pincode, and no error
         }
-    }, [email, pincode, errorMessage, goToLendersList]);
+    }, [email, companyName, pincode, errorMessage]);
 
     const handleTouchStart = (e) => {
         setTouchStartX(e.touches[0].clientX);
@@ -110,12 +113,21 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                 setErrorMessage('');
                 break;
 
+            case 'companyName' :
+                if(!email) {
+                    setErrorMessage('please fill the email field first.');
+                    return;
+                }
+                break;
+
             case 'pincode':
-                    if (!email) {
-                        setErrorMessage('Please fill the email field first.');
-                        return;
-                    }
-                    break;
+                if (!companyName) {
+                    setErrorMessage('Please fill the CompanyName field first.');
+                    return;
+                }
+                break;
+
+           
             default:
                 break;
         }
@@ -157,7 +169,11 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                 case 'pincode':
                     setPincode(value);
                     setPincode1(value);
-                    break;           
+                    break;  
+                
+                case 'companyName' :
+                    setCompanyName(value);
+                    setCompnanyName1(value);
             default:
                 break;
         }
@@ -224,6 +240,7 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                                         </div>
 
 
+
                                     </div>
                                     {/* Form content ends here */}
                                 </div>
@@ -246,6 +263,14 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                                         </div>
 
                                         <div className="input-group mb-5">
+                                            <input type="text" className="form-control textBox" placeholder="Enter Your Company Name" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
+                                                value={companyName && companyName1}
+                                                onChange={(e) => handleInputChange(e.target.value, 'companyName')}
+                                            />
+
+                                        </div>
+
+                                        <div className="input-group mb-5">
                                             <input type="number"  placeholder="Enter Your Office Pincode" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
                                                 value={pincode}
                                                 onChange={(e) => handleInputChange(e.target.value, 'pincode')}
@@ -253,6 +278,8 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                                             />
 
                                         </div>
+
+                                       
 
   
                                     </div>
