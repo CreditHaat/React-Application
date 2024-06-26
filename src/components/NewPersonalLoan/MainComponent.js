@@ -18,6 +18,7 @@ import LendingPartners from './Other Components/LendingPartners'
 import NewFooter from "./Other Components/NewFooter";
 import NewKeyPartners from "./Other Components/NewKeyPartners";
 import Loader from "./Other Components/Toader";
+import OtpVerifyLoader from "./Other Components/OtpVerifyLoader";
 
 function MainComponent() {
     // Usestates for maintaining the single page application without refreshing the page
@@ -41,6 +42,10 @@ function MainComponent() {
     const [lenderProduct, setLenderProduct] = useState();
 
     const [isLoading, setIsLoading] = useState(false);
+    const [otpLoader, setOtpLoader] = useState(false);
+
+    const [dobFlag, setDobFlag] = useState(true);
+    const [ResidentialPincodeFlag, setResidentialPincodeFlag] = useState(true);
 
     /*--------------------------------HERE WE WILL CREATE A USESTATES FOR SENDIND THE FORM DATA TO BACKEND-------------------*/
 
@@ -48,12 +53,15 @@ function MainComponent() {
 
     // const [addInfoData, setAddInfoData] = useState(new AddInfoData())
 
+    const [pan, setPan] = useState('');
+    const [dob, setDob] = useState('');
     const [profession, setProfession] = useState('');
     const [income, setIncome] = useState('');
     const [salaryType, setSalaryType] = useState('');
 
     const [email, setEmail] = useState('');
     const [pincode, setPincode] = useState('');
+    const [homePin, setHomePin] = useState('');
 
     const [companyName, setCompanyName] = useState('');
 
@@ -82,6 +90,7 @@ function MainComponent() {
             formData1.append('userPhoneNumber', formData.mobileNumber);
             formData1.append('firstName', formData.firstName);
             formData1.append('lastName', formData.lastName);
+            formData1.append('profession', formData.profession);
             formData1.append('dsa', dsa);
             formData1.append('channel', channel);
             formData1.append('source', source);
@@ -96,7 +105,7 @@ function MainComponent() {
             //     },
             // });
 
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}chfronetendotpgenerator`, formData1);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}chfronetendotpgenerator_new`, formData1);
 
             if (response.data.code === 0) {
 
@@ -120,6 +129,9 @@ function MainComponent() {
 
     const verify_otp_credithaat_from_backend = async (e) => {
         // e.preventDefault();
+
+        setOtpLoader(true);
+
         try {
             const formData1 = new FormData();
             formData1.append('mobileNumber', formData.mobileNumber);
@@ -128,14 +140,59 @@ function MainComponent() {
             formData1.append('stgTwoHitId', stgTwoHitId);
             formData1.append('t_experian_log_id', t_experian_log_id);
 
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}verifyOTP`, formData1);
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}verifyOTPNewPersonalloan`, formData1);
 
             if (response.data.code === 0) {
                 // setOtpStatus("Loading ...");
-                setShowOTPVerification(false);
-                setShowAddInfo(true);
-            } else {
-
+                setDobFlag(false);
+                setResidentialPincodeFlag(false);
+                setTimeout(() => {
+                    setOtpLoader(false);
+                    setShowOTPVerification(false);
+                    setShowAddInfo(true);
+                  }, 3000);
+                
+                
+            }
+            else if (response.data.code === 1) {
+                // setOtpStatus("Loading ...");
+                setDobFlag(true);
+                setResidentialPincodeFlag(false);
+                setTimeout(() => {
+                    setOtpLoader(false);
+                    setShowOTPVerification(false);
+                    setShowAddInfo(true);
+                  }, 3000);
+                
+                
+            }
+            
+            else if (response.data.code === 2) {
+                // setOtpStatus("Loading ...");
+                setResidentialPincodeFlag(true);
+                setDobFlag(false);
+                setTimeout(() => {
+                    setOtpLoader(false);
+                    setShowOTPVerification(false);
+                    setShowAddInfo(true);
+                  }, 3000);
+                
+                
+            }
+            else if (response.data.code === 3) {
+                // setOtpStatus("Loading ...");
+                setResidentialPincodeFlag(true);
+                setDobFlag(true);
+                setTimeout(() => {
+                    setOtpLoader(false);
+                    setShowOTPVerification(false);
+                    setShowAddInfo(true);
+                  }, 3000);
+                
+                
+            }
+            else {
+                setOtpLoader(false);
                 console.log("Incorrect OTP");
                 setOtpStatus("Incorrect OTP! Try Again..");
             }
@@ -156,7 +213,7 @@ function MainComponent() {
         e.preventDefault();
         try {
 
-            console.log("Tejas ", profession);
+            console.log("Tejas ", pan);
             console.log(income);
             console.log(salaryType);
 
@@ -164,7 +221,8 @@ function MainComponent() {
 
             const formData1 = new FormData();
             formData1.append('mobileNumber', formData.mobileNumber);
-            formData1.append('profession', profession);
+            formData1.append('pan', pan);
+            formData1.append('dob', dob);
             formData1.append('income', income);
             formData1.append('salaryType', salaryType);
             // formData1.append('t_experian_log_id',t_experian_log_id);
@@ -203,6 +261,7 @@ function MainComponent() {
             formData1.append('mobileNumber', formData.mobileNumber);
             formData1.append('email', email);
             formData1.append('pincode', pincode);
+            formData1.append('homePin', homePin);
             formData1.append('companyName', companyName);
 
             // formData1.append('t_experian_log_id',t_experian_log_id);
@@ -348,9 +407,9 @@ function MainComponent() {
             </div>
             <div className={styles.lowerDiv}>
                 <div className={`container ${isTransitioning ? 'transitioning' : ''}`}>
-                    {showForm && <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} />}
+                    {showForm && <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} setFormData={setFormData} />}
                     {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange} otpStatus={otpStatus} />}
-                    {showAddInfo && <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} handleAddInfoFormSubmit2={handleAddInfoFormSubmit2} profession1={profession} income1={income} salaryType1={salaryType} setProfession1={setProfession} setIncome1={setIncome} setSalaryType1={setSalaryType} email1={email} pincode1={pincode} setEmail1={setEmail} setPincode1={setPincode} companyName1={companyName} setCompnanyName1={setCompanyName} goToLendersList={handleAddInfo} />}
+                    {showAddInfo && <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} handleAddInfoFormSubmit2={handleAddInfoFormSubmit2} pan1={pan} dob1={dob} income1={income} salaryType1={salaryType} setPan1={setPan} setDob1={setDob} setIncome1={setIncome} setSalaryType1={setSalaryType} email1={email} pincode1={pincode} homePin1={homePin} setEmail1={setEmail} setPincode1={setPincode} setHomePin1={setHomePin} companyName1={companyName} setCompnanyName1={setCompanyName} goToLendersList={handleAddInfo} dobFlag={dobFlag} ResidentialPincodeFlag={ResidentialPincodeFlag}  />}
                     {showLendersList && <LendersList json1={lenderDetails} onGetLoan={handleOnGetLoan} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} formData={formData}/>}
                     {showBankNames && <BankName />}
                 </div>
@@ -373,6 +432,7 @@ function MainComponent() {
             {showAddInfo && <NewFooter />}
 
             {isLoading && <Loader/>}
+            {otpLoader && <OtpVerifyLoader/>}
 
             {/* {showForm && <GridContainer/>} */}
         </>

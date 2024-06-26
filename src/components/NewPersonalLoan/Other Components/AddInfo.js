@@ -8,36 +8,70 @@ import AddInfoPageImage from '../NewPersonalLoanImages/AddInfoPageImage.png';
 // import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImg.png';
 import './AddInfo.css';
 import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImage.png';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { Height, WidthFull } from "@mui/icons-material";
+import { width } from "@mui/system";
 
-function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, profession1, income1, salaryType1, setProfession1, setIncome1, setSalaryType1, email1, pincode1, setEmail1, setPincode1, companyName1, setCompnanyName1, goToLendersList }) {
+function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1, income1, salaryType1, setPan1, setDob1, setIncome1, setSalaryType1, email1, pincode1, homePin1, setEmail1, setPincode1, setHomePin1, companyName1, setCompnanyName1, goToLendersList, dobFlag, ResidentialPincodeFlag }) {
+
+
+
 
     const [step, setStep] = useState(1); // State to track the current step
-    const [profession, setProfession] = useState('');
+    // const [profession, setProfession] = useState('');
+    const [pan, setPan] = useState('');
+    const [dob, setDob] = useState('');
     const [income, setIncome] = useState('');
     const [salaryType, setSalaryType] = useState('');
     const [email, setEmail] = useState('');
     const [pincode, setPincode] = useState(''); // Set initial state to an empty string
+    const [homePin, setHomePin] = useState(''); //set te home Pin 
 
     const [companyName, setCompanyName] = useState('');
 
     const [touchStartX, setTouchStartX] = useState(0); // State to track touch start position
     const [errorMessage, setErrorMessage] = useState(''); // State to track error message
 
+    const [panErrorFlag, setPanErrorFlag] = useState(false); //We will set this panErrorFlag as false if error comes else we will set this panErrorFlag as true
+    // const [dobFlag, setDobFlag] = useState(true);
+    // const [homePinFlag, setHomePinFlag] = useState(true);
+
+    const [selectedDate, setSelectedDate] = useState(null);
+
+
+
     useEffect(() => {
         // Adjusted logic to prevent premature step change on income field change
         let timer;
-        if (income && parseInt(income) >= 0 && profession && salaryType) {
-            timer = setTimeout(() => {
-                const syntheticEvent = {
-                    preventDefault: () => {},
-                    // Add other properties as needed
-                };
-                handleAddInfoFormSubmit(syntheticEvent);
-                setStep(2);
-            }, 500); // Adjust delay as needed
+        if(dobFlag === true){
+            if (income && parseInt(income) >= 0 && pan && panErrorFlag && salaryType && dob) {
+                console.log("Inside Pan Error Flag : ", panErrorFlag)
+                timer = setTimeout(() => {
+                    const syntheticEvent = {
+                        preventDefault: () => { },
+                        // Add other properties as needed
+                    };
+                    handleAddInfoFormSubmit(syntheticEvent);
+                    setStep(2);
+                }, 500); // Adjust delay as needed
+            }
+        }else{
+            if (income && parseInt(income) >= 0 && pan && panErrorFlag && salaryType) {
+                console.log("Inside Pan Error Flag : ", panErrorFlag)
+                timer = setTimeout(() => {
+                    const syntheticEvent = {
+                        preventDefault: () => { },
+                        // Add other properties as needed
+                    };
+                    handleAddInfoFormSubmit(syntheticEvent);
+                    setStep(2);
+                }, 500); // Adjust delay as needed
+            }
         }
+        
         return () => clearTimeout(timer); // Cleanup on unmount or change
-    }, [profession, income, salaryType]);
+    }, [panErrorFlag, pan, income, salaryType, dob]);
 
     useEffect(() => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,6 +82,20 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
         }
     }, [email]);
 
+
+    useEffect(() => {
+        console.log("Inside pan useEffect")
+        const panRegex = /^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/;
+        if (pan && !panRegex.test(pan)) {
+            setErrorMessage(prevErrorMessage => prevErrorMessage ? prevErrorMessage : 'Invalid PAN');
+            setPanErrorFlag(false);
+            console.log("inside useEffect for pan : ", panErrorFlag);
+        } else {
+            setErrorMessage(prevErrorMessage => prevErrorMessage === 'Invalid PAN' ? '' : prevErrorMessage);
+            setPanErrorFlag(true);
+        }
+    }, [pan])
+
     useEffect(() => {
         const pincodeRegex = /^[1-9][0-9]{5}$/;
         if (pincode && !pincodeRegex.test(pincode)) {
@@ -57,19 +105,46 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
         }
     }, [pincode]);
 
-    
+    useEffect(() => {
+        const pincodeRegex = /^[1-9][0-9]{5}$/;
+        if (homePin && !pincodeRegex.test(homePin)) {
+            setErrorMessage(prevErrorMessage => prevErrorMessage ? prevErrorMessage : 'Invalid home pin');
+        } else {
+            setErrorMessage(prevErrorMessage => prevErrorMessage === 'Invalid home pin' ? '' : prevErrorMessage);
+        }
+    }, [homePin]);
+
+
 
     useEffect(() => {
-        if (email && pincode && !errorMessage && companyName && pincode.length === 6) {
-            const syntheticEvent = {
-                preventDefault: () => {},
-                // Add other properties as needed
-            };
-            handleAddInfoFormSubmit2(syntheticEvent);
-            
-            goToLendersList(); // Move to next step if email, pincode, and no error
+        if(ResidentialPincodeFlag === true){
+            if (email && pincode && !errorMessage && companyName && pincode.length === 6 && homePin.length === 6 && homePin) {
+                const syntheticEvent = {
+                    preventDefault: () => { },
+                    // Add other properties as needed
+                };
+                handleAddInfoFormSubmit2(syntheticEvent);
+    
+                goToLendersList(); // Move to next step if email, pincode, and no error
+            }
+        }else{
+            if (email && pincode && !errorMessage && companyName && pincode.length === 6) {
+                const syntheticEvent = {
+                    preventDefault: () => { },
+                    // Add other properties as needed
+                };
+                handleAddInfoFormSubmit2(syntheticEvent);
+    
+                goToLendersList(); // Move to next step if email, pincode, and no error
+            }
         }
+        
     }, [email, companyName, pincode, errorMessage]);
+
+    const handleDateChange = date => {
+        setDob(date);
+        setDob1(date);
+    };
 
     const handleTouchStart = (e) => {
         setTouchStartX(e.touches[0].clientX);
@@ -78,7 +153,7 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
     const handleTouchEnd = (e) => {
         const endX = e.changedTouches[0].clientX;
         const deltaX = endX - touchStartX;
-        if (deltaX < -50 && step < 2 && profession && income && salaryType && parseInt(income) >= 0) {
+        if (deltaX < -50 && step < 2 && pan && income && salaryType && parseInt(income) >= 0) {
             setStep(step + 1); // Swipe left to go forward
         }
     };
@@ -94,14 +169,21 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
         switch (fieldName) {
             case 'income':
 
-                if (!profession) {
-                    setErrorMessage('Please fill the profession field first.');
+                if (!pan) {
+                    setErrorMessage('Please fill the PAN Details first.');
+                    return;
+                }
+                // if (!dob) {
+                //     setErrorMessage('Please enter your DOB first');
+                //     return;
+                // }
+                if (errorMessage) {
                     return;
                 }
                 break;
-                
 
-                
+
+
             case 'salaryType':
                 if (!income) {
                     setErrorMessage('Please fill the income field first and provide valid income');
@@ -113,8 +195,8 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                 setErrorMessage('');
                 break;
 
-            case 'companyName' :
-                if(!email) {
+            case 'companyName':
+                if (!email) {
                     setErrorMessage('please fill the email field first.');
                     return;
                 }
@@ -127,29 +209,42 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                 }
                 break;
 
-           
+            case 'homePin':
+                if (!pincode) {
+                    setErrorMessage('Please fill the pincode field first.');
+                    return;
+                }
+                break;
+
+
             default:
                 break;
         }
 
         // If previous field is filled, update the state and clear error message
         switch (fieldName) {
-            case 'profession':
-                setProfession(value);
-                setProfession1(value)
-                
+            case 'PAN':
+
+                setPan(value.toUpperCase());
+                setPan1(value.toUpperCase());
+
                 // setFormData(prevFormData => [...prevFormData, {
-                //     'profession': value
+                //     'pan': value
                 // }]);
 
-                
-                    // formData({
-                        
-                    //     profession : value
-                    // })
-                
+
+                // formData({
+
+                //     pan : value
+                // })
+
                 setErrorMessage('');
                 break;
+
+            case 'dob':
+                setDob(value);
+                setDob1(value);
+
             case 'income':
                 setIncome(value);
                 setIncome1(value);
@@ -162,18 +257,34 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
 
                 setErrorMessage('');
                 break;
-                case 'email':
-                    setEmail(value);
-                    setEmail1(value);
-                    break;
-                case 'pincode':
+            case 'email':
+                setEmail(value);
+                setEmail1(value);
+                break;
+            case 'pincode':
+                if (value.length <= 6) {
                     setPincode(value);
                     setPincode1(value);
-                    break;  
-                
-                case 'companyName' :
-                    setCompanyName(value);
-                    setCompnanyName1(value);
+                }
+                // else{
+                //     // setErrorMessage('Only 6 digit pincode allowed')
+                // }
+
+                break;
+
+            case 'companyName':
+                setCompanyName(value);
+                setCompnanyName1(value);
+                break;
+
+            case 'homePin':
+                if (value.length <= 6) {
+                    setHomePin(value);
+                    setHomePin1(value);
+                }
+
+                break;
+
             default:
                 break;
         }
@@ -181,19 +292,19 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
 
     return (
         <>
-            <section className="container banner" style={{borderRadius: '20px', marginTop: '10px', backgroundColor: '#f2edff' }}>
+            <section className="container banner" style={{ borderRadius: '20px', marginTop: '10px', backgroundColor: '#f2edff' }}>
                 <div className="row py-md-5 px-md-5" style={{ display: "flex" }}>
                     <div className="col-md-6">
                         <div className="row" style={{ display: "flex" }}>
-                            
 
-                                        <img
-                                            // src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/site-banner-ladypic.png"
-                                            src={AddInfoPageImg}
-                                            className="figure-img img-fluid banner_img"
-                                            alt="..."
-                                            
-                                        />
+
+                            <img
+                                // src="https://credithaatimages.s3.ap-south-1.amazonaws.com/siteimages/site-banner-ladypic.png"
+                                src={AddInfoPageImg}
+                                className="figure-img img-fluid banner_img"
+                                alt="..."
+
+                            />
 
                         </div>
                     </div>
@@ -206,17 +317,33 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                                     {/* From Here We will add the form Contents which should slide after filling all the details */}
                                     <div className="row" style={{ display: "flex" }}>
                                         <div className="input-group mb-5">
-                                            <select className="form-select textBox" aria-label="First Name" aria-describedby="first-name-icon"
-                                                value={profession && profession1}
-                                                onChange={(e) => handleInputChange(e.target.value, 'profession')}
-                                            >
-                                                <option value="">Select Your Profession </option>
-                                                <option>Salaried</option>
-                                                <option value="Self Employed">Self Employed</option>
-                                                <option value="Business">Business</option>
-                                            </select>
+                                            <input type="text" className="form-control textBox" placeholder="PAN" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
+
+                                                style={{ textTransform: 'uppercase' }}
+                                                value={pan && pan1}
+                                                onChange={(e) => handleInputChange(e.target.value, 'PAN')}
+                                            />
 
                                         </div>
+
+                                        {dobFlag &&
+                                            <>
+
+                                                <div className="input-group mb-5">
+
+                                                    <div className="date">
+                                                        <DatePicker
+                                                            className="form-control"
+                                                            selected={dob && dob1}
+                                                            onChange={handleDateChange}
+                                                            dateFormat="dd/MM/yyyy" // Customize date format as per your requirement
+                                                            isClearable // Optional: Adds a clear button to clear the date
+                                                            placeholderText="Select a date" // Placeholder text when no date is selected
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
 
 
                                         <div className="input-group mb-5">
@@ -227,7 +354,7 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
 
                                         </div>
 
-                                        <div className="input-group mb-2">
+                                        <div className="input-group mb-5">
                                             <select className="form-select textBox" aria-label="First Name" aria-describedby="first-name-icon"
                                                 value={salaryType && salaryType1}
                                                 onChange={(e) => handleInputChange(e.target.value, 'salaryType')}
@@ -238,8 +365,6 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                                                 <option value="2">Bank Transfer</option>
                                             </select>
                                         </div>
-
-
 
                                     </div>
                                     {/* Form content ends here */}
@@ -255,7 +380,7 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                                     <div className="row" style={{ display: "flex" }}>
 
                                         <div className="input-group mb-5">
-                                            <input type="email"  placeholder="Enter Your Email" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
+                                            <input type="email" placeholder="Enter Your Email" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
                                                 value={email}
                                                 onChange={(e) => handleInputChange(e.target.value, 'email')}
                                             />
@@ -271,17 +396,30 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                                         </div>
 
                                         <div className="input-group mb-5">
-                                            <input type="number"  placeholder="Enter Your Office Pincode" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
+                                            <input type="number" placeholder="Enter Your Office Pincode" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
                                                 value={pincode}
                                                 onChange={(e) => handleInputChange(e.target.value, 'pincode')}
-                                                
+
                                             />
 
                                         </div>
 
-                                       
+                                        {
+                                            ResidentialPincodeFlag &&
+                                            <div className="input-group mb-5">
+                                                <input type="number" placeholder="Enter Your Home Pin" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
+                                                    value={homePin}
+                                                    onChange={(e) => handleInputChange(e.target.value, 'homePin')}
 
-  
+                                                />
+
+                                            </div>
+                                        }
+
+
+
+
+
                                     </div>
                                     {/* Content for second form ends here */}
 
@@ -294,8 +432,8 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
                             <span className={`dot ${step === 2 ? 'active' : ''}`}></span>
                         </div>
                         {errorMessage && <div className="text-danger">{errorMessage}</div>}
-                        {step > 1 && <FaArrowLeft className="arrow-left" style={{marginBottom:'30px'}} onClick={prevStep} />}
-                        
+                        {step > 1 && <FaArrowLeft className="arrow-left" style={{ marginBottom: '30px' }} onClick={prevStep} />}
+
                     </div>
 
 
@@ -324,6 +462,21 @@ function AddInfo({ handleAddInfoFormSubmit , handleAddInfoFormSubmit2, professio
           }
         `}
             </style>
+
+            <style>
+                {`
+                    .date{
+                        width: 100%;
+                    }
+                    .react-datepicker-wrapper {
+                        display: inline-block;
+                        padding: 0;
+                        border: 0;
+                        width: 100%;
+                    }
+                `}
+            </style>
+
         </>
     );
 

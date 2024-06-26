@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo2 from '../NewPersonalLoanImages/happy image3.png'
 import './Form.css'
 import happyImage from '../NewPersonalLoanImages/happy image3.png'
@@ -13,7 +13,7 @@ import NewFormPageImage from '../NewPersonalLoanImages/NewFormPageImage.png';
 import NewFormPageImage2 from '../NewPersonalLoanImages/FormPageImage2.png';
 import NewFormPageImage3 from '../NewPersonalLoanImages/FormPageImage3.png';
 
-function FormPage({ formData, handleChange, onSubmit }) {
+function FormPage({ formData, handleChange, onSubmit, setFormData }) {
     const [errors, setErrors] = useState({});
 
     const validateForm = () => {
@@ -33,6 +33,11 @@ function FormPage({ formData, handleChange, onSubmit }) {
         } else if (!/^[6-9]\d{9}$/.test(formData.mobileNumber)) {
             errors.mobileNumber = "Please enter a valid 10-digit mobile number";
         }
+        if(!formData.profession){
+            console.log("Inside formData profession");
+            errors.profession = "Profession is required";
+            console.log("Inside formData profession : ",errors.profession);
+        }
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
@@ -50,30 +55,30 @@ function FormPage({ formData, handleChange, onSubmit }) {
         // Add more image URLs as needed
       ];
 
+      useEffect(() => {
+        console.log(formData.profession);
+        // handleChange(e);
+    }, [formData.profession]);
+
+      const handleInputChange = (value, fieldName) => {
+        switch (fieldName){
+            case 'profession' :{
+                setFormData({
+                    ...formData,
+                    [fieldName]: value
+                });
+                break;
+            }
+        }
+      }
+
     return (
         <>
+        {console.log(formData.profession)}
             <section className="container banner" style={{borderRadius: '20px', marginTop: '10px', backgroundColor: '#f2edff' }}>
                 <div className="row py-md-5 px-md-5" style={{ display: "flex" }}>
                 {/* style={{height:'220px'}} */}
                     <div className="col-md-6">
-                        {/* <div className="row" style={{ display: "flex" }}>
-                            <div className="col-md-12" style={{ display: "flex",justifyContent: "center",alignItems: "center"}}>
-                                <div style={{width:"49%",float:"left"}}>
-                                    <h1 className="banner_title" style={{ fontFamily: "'Noto Sans'", fontWeight: "500", margin:"auto" }}>
-                                        Getting a loan <br />made simple <br />and fast
-                                    </h1>
-                                </div>
-                                <div className="text-center" style={{width:"49%",float:"right"}}>
-                                    <figure className="figure">
-                                        <img src={happyImage} className="figure-img img-fluid banner_img" alt="..." style={{ height: "auto", width: "100%", maxWidth: "300px", margin: "0 auto 1rem" }} />
-                                    </figure>
-                                </div>
-                            </div>
-                        </div> */}
-
-                        {/* <img src={NewFormPageImage} className="figure-img img-fluid banner_img" alt="..." /> */}
-                        {/* <img src={NewFormPageImage2} className="figure-img img-fluid banner_img" alt="..." /> */}
-                        {/* <img src={NewFormPageImage3} className="figure-img img-fluid banner_img" alt="..." /> */}
                         
                         <FormPageCarousel images={images}/>
                         
@@ -90,6 +95,21 @@ function FormPage({ formData, handleChange, onSubmit }) {
                                     <input type="text" className={`form-control textBox ${errors.lastName ? 'is-invalid' : ''}`} placeholder="Last Name" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName" value={formData.lastName || ''} onChange={handleChange} style={{ border: '1px solid #3e2780', borderRadius: '5px',borderRight:'none',borderTopRightRadius:'0px',borderBottomRightRadius:'0px' }} />
                                     <span className="input-group-text" id="last-name-icon" style={{ border: '1px solid #3e2780', borderRadius: '5px',borderLeft:'none',borderTopLeftRadius:'0px',borderBottomLeftRadius:'0px' }}><i className="bi bi-person"></i></span>
                                     {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
+                                </div>
+                                <div className="input-group mb-5">
+                                    <select className={`form-select textBox ${errors.profession ? 'is-invalid' : ''}`} aria-label="First Name" aria-describedby="first-name-icon"
+                                        value={formData.profession || ''}
+                                        style={{ border: '1px solid #3e2780', borderRadius: '5px'}}
+                                        onChange={(e) => handleInputChange(e.target.value, 'profession') && handleChange}
+                                    >
+                                        <option value="">Select Your Profession </option>
+                                        <option>Salaried</option>
+                                        <option value="Self Employed">Self Employed</option>
+                                        <option value="Business">Business</option>
+                                    </select>
+                                    {console.log("Inside : ", errors.profession)}
+                                    {errors.profession && <div className="invalid-feedback">{errors.profession}</div>}
+
                                 </div>
                                 <div className="input-group mb-2" >
                                     <input type="number" className={`form-control textBox ${errors.mobileNumber ? 'is-invalid' : ''}`} placeholder="Mobile Number" aria-label="Mobile Number" aria-describedby="mobile-number-icon" name="mobileNumber" value={formData.mobileNumber || ''} onChange={handleChange} style={{ border: '1px solid #3e2780', borderRadius: '5px',borderRight:'none',borderTopRightRadius:'0px',borderBottomRightRadius:'0px' }} />

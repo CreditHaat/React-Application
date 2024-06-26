@@ -1,8 +1,6 @@
-
-
 import React from "react";
 
-function Loader() {
+function OtpVerifyLoader() {
   return (
     <div
       style={{
@@ -18,6 +16,7 @@ function Loader() {
         zIndex: 9999, // Ensure it's on top of other content
       }}
     >
+      {/* Loader Container */}
       <div
         style={{
           backgroundColor: "#ffffff", // White background
@@ -26,14 +25,20 @@ function Loader() {
           boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)", // Soft box shadow
           textAlign: "center", // Center align text
           maxWidth: "300px", // Limit maximum width
+          position: "relative", // Relative positioning for nested elements
         }}
       >
-        <h2 style={{ fontSize: "1.5rem", margin: "0", color: "#3498db" }}>
-          Finding Best Lenders
-        </h2>
-        <p style={{ fontSize: "1rem", margin: "10px 0", color: "#555" }}>
-          Please wait while we find the best lenders for you...
-        </p>
+        {/* Loader Text */}
+        <div style={{ marginBottom: "20px" }}>
+          <h2 style={{ fontSize: "1.5rem", margin: "0", color: "#3e2780" }}>
+            Verifying OTP
+          </h2>
+          <p style={{ fontSize: "1rem", margin: "10px 0", color: "#555" }}>
+            Please wait while we verify your OTP...
+          </p>
+        </div>
+
+        {/* Horizontal Loader Bar */}
         <div
           style={{
             width: "100%",
@@ -47,7 +52,7 @@ function Loader() {
             style={{
               width: "50%", // Initial width for animation
               height: "100%",
-              backgroundColor: "#3498db", // Blue color for loader progress
+              backgroundColor: "#3e2780", // Blue color for loader progress
               animation: "progress 2s ease-in-out infinite", // Animation for loader progress
             }}
           />
@@ -67,4 +72,4 @@ function Loader() {
   );
 }
 
-export default Loader;
+export default OtpVerifyLoader;
