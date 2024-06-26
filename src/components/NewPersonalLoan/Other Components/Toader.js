@@ -1,5 +1,3 @@
-
-
 import React from "react";
 
 function Loader() {
@@ -28,7 +26,7 @@ function Loader() {
           maxWidth: "300px", // Limit maximum width
         }}
       >
-        <h2 style={{ fontSize: "1.5rem", margin: "0", color: "#3498db" }}>
+        <h2 style={{ fontSize: "1.5rem", margin: "0", color: "#3e2780" }}>
           Finding Best Lenders
         </h2>
         <p style={{ fontSize: "1rem", margin: "10px 0", color: "#555" }}>
@@ -47,7 +45,7 @@ function Loader() {
             style={{
               width: "50%", // Initial width for animation
               height: "100%",
-              backgroundColor: "#3498db", // Blue color for loader progress
+              backgroundColor: "#3e2780", // Blue color for loader progress
               animation: "progress 2s ease-in-out infinite", // Animation for loader progress
             }}
           />

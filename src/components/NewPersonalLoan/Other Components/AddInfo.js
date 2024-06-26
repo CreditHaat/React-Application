@@ -99,18 +99,18 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
     useEffect(() => {
         const pincodeRegex = /^[1-9][0-9]{5}$/;
         if (pincode && !pincodeRegex.test(pincode)) {
-            setErrorMessage(prevErrorMessage => prevErrorMessage ? prevErrorMessage : 'Invalid pincode');
+            setErrorMessage(prevErrorMessage => prevErrorMessage ? prevErrorMessage : 'Invalid Office pincode');
         } else {
-            setErrorMessage(prevErrorMessage => prevErrorMessage === 'Invalid pincode' ? '' : prevErrorMessage);
+            setErrorMessage(prevErrorMessage => prevErrorMessage === 'Invalid Office pincode' ? '' : prevErrorMessage);
         }
     }, [pincode]);
 
     useEffect(() => {
         const pincodeRegex = /^[1-9][0-9]{5}$/;
         if (homePin && !pincodeRegex.test(homePin)) {
-            setErrorMessage(prevErrorMessage => prevErrorMessage ? prevErrorMessage : 'Invalid home pin');
+            setErrorMessage(prevErrorMessage => prevErrorMessage ? prevErrorMessage : 'Invalid Residential pincode');
         } else {
-            setErrorMessage(prevErrorMessage => prevErrorMessage === 'Invalid home pin' ? '' : prevErrorMessage);
+            setErrorMessage(prevErrorMessage => prevErrorMessage === 'Invalid Residential pincode' ? '' : prevErrorMessage);
         }
     }, [homePin]);
 
@@ -407,7 +407,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
                                         {
                                             ResidentialPincodeFlag &&
                                             <div className="input-group mb-5">
-                                                <input type="number" placeholder="Enter Your Home Pin" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
+                                                <input type="number" placeholder="Enter Your Residential Pincode" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
                                                     value={homePin}
                                                     onChange={(e) => handleInputChange(e.target.value, 'homePin')}
 
