@@ -73,6 +73,8 @@ const LendersList = ({ json1, onGetLoan, lenderProduct, setLenderProduct,formDat
 
 };
 
+
+
 return (
 <>
     {!isLoading && isCameFromBackend && <ApplicationPopup link={link} lenderName={lenderName}/>}
@@ -95,7 +97,7 @@ return (
                 {lender.product}
               </Typography>
               <Typography variant="body2" color="textSecondary" className="data" style={{ fontFamily: 'Times New Roman, Times, serif' }}>
-                Quick Personal Loans, 100% digital collateral-free
+                Quick Loans, 100% digital collateral-free
               </Typography>
             </div>
           </div>
@@ -118,13 +120,27 @@ return (
           </div>
           <div className="action-button">
             {/* <Link to={`/NewPersonalLoan/${lender.product}`} className="getLoanButtonLink"> */}
-              <button onClick={(e) => getLoanBackend(e, lender.product)}
+
+            {lender.cpi === 1 ? (
+              <button onClick={() => window.location.href = lender.applicationlink}
                 size="small"
                 variant="contained"
                 className="getLoanButton"
               >
                 Get Loan
               </button>
+              ) : (
+
+                <button onClick={(e) => getLoanBackend(e, lender.product)}
+                size="small"
+                variant="contained"
+                className="getLoanButton"
+              >
+                Get Loan
+              </button>
+            )}
+
+
             {/* </Link> */}
           </div>
         </div>

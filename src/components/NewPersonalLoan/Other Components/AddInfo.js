@@ -12,10 +12,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Height, WidthFull } from "@mui/icons-material";
 import { width } from "@mui/system";
+import DatePicker1 from './DatePicker'
 
 function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1, income1, salaryType1, setPan1, setDob1, setIncome1, setSalaryType1, email1, pincode1, homePin1, setEmail1, setPincode1, setHomePin1, companyName1, setCompnanyName1, goToLendersList, dobFlag, ResidentialPincodeFlag }) {
-
-
 
 
     const [step, setStep] = useState(1); // State to track the current step
@@ -44,7 +43,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
     useEffect(() => {
         // Adjusted logic to prevent premature step change on income field change
         let timer;
-        if(dobFlag === true){
+        if (dobFlag === true) {
             if (income && parseInt(income) >= 0 && pan && panErrorFlag && salaryType && dob) {
                 console.log("Inside Pan Error Flag : ", panErrorFlag)
                 timer = setTimeout(() => {
@@ -56,7 +55,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
                     setStep(2);
                 }, 500); // Adjust delay as needed
             }
-        }else{
+        } else {
             if (income && parseInt(income) >= 0 && pan && panErrorFlag && salaryType) {
                 console.log("Inside Pan Error Flag : ", panErrorFlag)
                 timer = setTimeout(() => {
@@ -69,7 +68,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
                 }, 500); // Adjust delay as needed
             }
         }
-        
+
         return () => clearTimeout(timer); // Cleanup on unmount or change
     }, [panErrorFlag, pan, income, salaryType, dob]);
 
@@ -117,28 +116,28 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
 
 
     useEffect(() => {
-        if(ResidentialPincodeFlag === true){
+        if (ResidentialPincodeFlag === true) {
             if (email && pincode && !errorMessage && companyName && pincode.length === 6 && homePin.length === 6 && homePin) {
                 const syntheticEvent = {
                     preventDefault: () => { },
                     // Add other properties as needed
                 };
                 handleAddInfoFormSubmit2(syntheticEvent);
-    
+
                 goToLendersList(); // Move to next step if email, pincode, and no error
             }
-        }else{
+        } else {
             if (email && pincode && !errorMessage && companyName && pincode.length === 6) {
                 const syntheticEvent = {
                     preventDefault: () => { },
                     // Add other properties as needed
                 };
                 handleAddInfoFormSubmit2(syntheticEvent);
-    
+
                 goToLendersList(); // Move to next step if email, pincode, and no error
             }
         }
-        
+
     }, [email, companyName, pincode, errorMessage]);
 
     const handleDateChange = date => {
@@ -326,7 +325,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
 
                                         </div>
 
-                                        {dobFlag &&
+                                        {/* {dobFlag &&
                                             <>
 
                                                 <div className="input-group mb-5">
@@ -343,6 +342,12 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
                                                     </div>
                                                 </div>
                                             </>
+                                        } */}
+
+                                        {dobFlag &&
+                                            <div className="input-group mb-5">
+                                                <DatePicker1 dob={dob} dob1={dob1} setDob={setDob} setDob1={setDob1} handleDateChange={handleDateChange} setErrorMessage={setErrorMessage} />
+                                            </div>
                                         }
 
 

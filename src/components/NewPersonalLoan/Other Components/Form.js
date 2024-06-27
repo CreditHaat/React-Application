@@ -104,7 +104,7 @@ function FormPage({ formData, handleChange, onSubmit, setFormData }) {
                                     >
                                         <option value="">Select Your Profession </option>
                                         <option>Salaried</option>
-                                        <option value="Self Employed">Self Employed</option>
+                                        <option value="Self employed">Self Employed</option>
                                         <option value="Business">Business</option>
                                     </select>
                                     {console.log("Inside : ", errors.profession)}

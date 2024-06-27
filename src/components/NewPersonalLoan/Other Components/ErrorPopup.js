@@ -46,7 +46,7 @@ function ErrorPopup({setErrorPopup, lenderName}) {
               }}>
                 X
               </div>
-              Application Not Created successfully on {lenderName}, try again with different lender. <br/>
+              Application Not Created on {lenderName}, try again with different lender. <br/>
               <center>
                 <button className="btn btn-primary" style={{ color: 'white',backgroundColor:'#3e2780',marginTop:'20px',border:'none'}} onClick={handleButtonClick}>
                   Try Again

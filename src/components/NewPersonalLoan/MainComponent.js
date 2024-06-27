@@ -277,18 +277,14 @@ function MainComponent() {
 
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}thirdpageNewpersonalloan`, formData1);
 
-            setTimeout(() => {
-                setIsLoading(false);
-              }, 3000);
-
-            
-
             if (response.data.code === 0) {
 
                 console.log('Submission successful:', response.data);
 
                 //Here when the code is 0 we are calling lendersList backend which will give us lendersList accrding to user
                 getLendersList(e);
+
+                
 
                 // setShowAddInfo(false);
                 // setShowLendersList(true);
@@ -298,7 +294,7 @@ function MainComponent() {
             console.log(response);
 
             if (response.status === 200) {
-
+                console.log("When 200")
 
             } else {
                 console.error('Submission failed:', response.statusText);
@@ -325,6 +321,9 @@ function MainComponent() {
                 }
             });
 
+            setTimeout(() => {
+                setIsLoading(false);
+              }, 3000);
             console.log(response);
 
             if (response.data.code === 200) {
