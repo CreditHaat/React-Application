@@ -40,6 +40,7 @@ import LoaderPage from './components/CreditCard/LoaderPage';
 import SecondFormPage from './components/CreditCard/SecondFormPage';
 import MainComponent from './components/NewPersonalLoan/MainComponent';
 import BankName from './components/NewPersonalLoan/Other Components/BankName';
+import BaseComponent from './components/EmbeddedJourneyList/BaseComponent';
 function App() {
   return (
     <>
@@ -94,6 +95,9 @@ function App() {
         <Route path='/NewPersonalLoan/bankname' element={<BankName/>}/>
        
         {/* Routing for New Personal Loan ends here*/}
+
+{/* Embedded Journey list */}
+        <Route path='/BaseComponent' element={<BaseComponent/>}/>
 
         </Routes>
         </UserProvider>
