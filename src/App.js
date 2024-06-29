@@ -97,7 +97,7 @@ function App() {
         {/* Routing for New Personal Loan ends here*/}
 
 {/* Embedded Journey list */}
-        <Route path='/BaseComponent' element={<BaseComponent/>}/>
+        <Route path='/embedded_journey' element={<BaseComponent/>}/>
 
         </Routes>
         </UserProvider>

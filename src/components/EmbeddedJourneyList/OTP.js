@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './OTP.css';
 
-function OTPVerification({}) {
+function OTPVerification({ verifyOTP, upotp, otpStatus, setUpOtp }) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [tempOtp, setTempOtp] = useState("");
 
@@ -28,26 +27,38 @@ function OTPVerification({}) {
       }
 
       setOtp(newOtp);
+      // setUpOtp(newOtp.join(""));
+      // console.log(upotp);
 
       setTempOtp(newOtp.join(""));
-    
+
     }
   };
 
-  useEffect(()=>{
-    console.log(otp);
-    console.log(tempOtp);
-    console.log(tempOtp.length)
-  },[otp]);
 
+  useEffect(() => {
+    if (otpStatus === "Incorrect OTP! Try Again..") {
+      resetOtp();
 
-  
+    }
+  }, [otpStatus]);
+
+  // We are using this useEffect for calling the otpVarify function when the user enters the otp
+  useEffect(() => {
+    if (upotp.length === 6) {
+
+      console.log("oTP LENGTH IS : ", upotp.length);
+      verifyOTP();
+      setTempOtp('');
+
+    }
+  }, [upotp]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const enteredOTP = otp.join("");
 
-    alert('OTP submitted: ' + enteredOTP);
+    // alert('OTP submitted: ' + enteredOTP);
 
     // Check OTP here and redirect if successful
     // if (enteredOTP === "123456") {
@@ -55,17 +66,21 @@ function OTPVerification({}) {
     // }
   };
 
-    const resetOtp = () => {
+  const resetOtp = () => {
     setOtp(new Array(6).fill(""));
   };
 
 
+
+  //We are using this useEffect for calling the otpVarify function when the user enters the otp
+
+  /////////////////////////////
   return (
     <div className="otp-container">
-      <h2>Fill OTP</h2>
-      <h4 style={{paddingLeft:'0px'}} className="terms-text">Please enter the 6 digit code sent <br></br>to your mobile number for verification.</h4>
-      <form style={{textAlign:'center'}} onSubmit={handleSubmit}>
-        <div style={{textAlign:'center'}} className="otp-inputs">
+      <h2 style={{ marginBottom: '40px', textAlign: 'center' }}>OTP Verification</h2>
+      <h4 style={{ paddingLeft: '0px' }} className="terms-text"></h4>
+      <form style={{ textAlign: 'center' }} onSubmit={handleSubmit}>
+        <div style={{ textAlign: 'center' }} className="otp-inputs">
           {otp.map((data, index) => (
             <input
               type="number"
@@ -79,10 +94,17 @@ function OTPVerification({}) {
           ))}
         </div>
 
-            {/* {handleOtpChange(otp.join(''))} */}
-            {/* <p style={{color:'red', textAlign:'center'}}>{otpStatus}</p> */}
 
-        <button className="button-container  verify-button">Verify</button>
+        {setUpOtp(otp.join(''))}
+        <p style={{ color: 'red', textAlign: 'center' }}>{otpStatus}</p>
+
+        <div className="input-group mb-2 mt-5 text-center">
+          <p className="terms-text" style={{ height: '40px', overflowX: 'hidden', overflowY: 'auto' }}>
+            By clicking "Send OTP" button and accepting the terms and conditions set out here in, you provide your express consent to Social Worth Technologies Private Limited, Whizdm Innovations Pvt Ltd, Upwards Fintech Services Pvt Ltd, Tata Capital Financial Services Ltd, SmartCoin Financials Pvt Ltd, MWYN Tech Pvt Ltd, L&T Finance Ltd, Krazybee Services Pvt Ltd, Infocredit Services Pvt. Ltd, Incred Financial Services, IIFL Finance Ltd, EQX Analytics Pvt Ltd, EPIMoney Pvt Ltd, Bhanix finance and Investment LTd, Aditya Birla Finance Ltd to access the credit bureaus and credit information report and credit score. You also hereby irrevocably and unconditionally consent to usage of such credit information being provided by credit bureaus
+          </p>
+        </div>
+
+        <button onClick={verifyOTP} style={{marginTop:'0px'}} className="button-container  verify-button">Verify</button>
       </form>
     </div>
   );

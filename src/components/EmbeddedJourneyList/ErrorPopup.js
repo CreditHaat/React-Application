@@ -1,10 +1,16 @@
 import React from "react";
+import $ from 'jquery';
 
-function ErrorPopup({setErrorPopup, lenderName}) {
+function ErrorPopup({setErrorPopup, lenderName, setErrorPopup2}) {
 
     const handleButtonClick = () => {
         // window.location.href = link;
         setErrorPopup(false);
+        setErrorPopup2(true);
+
+        console.log(lenderName);
+
+        $(`.${lenderName}`).css("display", "none");
       };
 
     return (
@@ -46,7 +52,7 @@ function ErrorPopup({setErrorPopup, lenderName}) {
               }}>
                 X
               </div>
-              Unfortunately; application Not accepted by {lenderName}. Please try again with a different lender.<br/>
+              Unfortunately; application Not accepted by {lenderName}. Please try again with a different lender. <br/>
               <center>
                 <button className="btn btn-primary" style={{ color: 'white',backgroundColor:'#3e2780',marginTop:'20px',border:'none'}} onClick={handleButtonClick}>
                   Try Again
@@ -82,6 +88,9 @@ function ErrorPopup({setErrorPopup, lenderName}) {
                     transform: scale(1);
                   }
                 }
+                  .hide{
+                    display:none;
+                  }
               `}
             </style>
           </div>
