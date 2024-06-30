@@ -373,6 +373,9 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
 
                                     </div>
                                     {/* Form content ends here */}
+                                    <div className="input-group mb-5 justify-content-center">
+                                        <button type="submit" className="btn" style={{ backgroundColor: "#3e2780", color: "#ffffff", padding: "5px", width: "150px" }}>Next →</button>
+                                    </div>
                                 </div>
                             )}
 
@@ -427,6 +430,10 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
 
                                     </div>
                                     {/* Content for second form ends here */}
+
+                                    <div className="input-group mb-5 justify-content-center">
+                                        <button type="submit" className="btn" style={{ backgroundColor: "#3e2780", color: "#ffffff", padding: "5px", width: "150px" }}>Next →</button>
+                                    </div>
 
                                 </div>
                             )}

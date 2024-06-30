@@ -118,7 +118,7 @@ function FormPage({ formData, handleChange, onSubmit, setFormData }) {
                                 </div>
                                 <div className="input-group mb-2 text-center">
                                     <p className="terms-text" style={{display:'none' }}>
-                                        By clicking "Send OTP" button, you agree to our <a href="/terms">Terms and Conditions</a>
+                                        By clicking "Send OTP" button, you agree to our <a href="https://loan.credithaat.com/tnc">Terms and Conditions</a>
                                     </p>
                                 </div>
 
