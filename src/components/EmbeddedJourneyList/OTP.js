@@ -77,12 +77,12 @@ function OTPVerification({ verifyOTP, upotp, otpStatus, setUpOtp }) {
   /////////////////////////////
   return (
     <div className="otp-container">
-      <h2 style={{ marginBottom: '40px', textAlign: 'center' }}>OTP Verification</h2>
+      <h2 style={{ marginBottom: '40px', textAlign: 'center',color:'#3e2780' }}>OTP Verification</h2>
       <h4 style={{ paddingLeft: '0px' }} className="terms-text"></h4>
       <form style={{ textAlign: 'center' }} onSubmit={handleSubmit}>
         <div style={{ textAlign: 'center' }} className="otp-inputs">
           {otp.map((data, index) => (
-            <input
+            <input style={{ height:'40px',width:'40px',margin:'5px',borderRadius:'2px',border:'solid #3e2780 1px',textAlign:'center' }}
               type="number"
               name="otp"
               maxLength="1"
@@ -104,7 +104,7 @@ function OTPVerification({ verifyOTP, upotp, otpStatus, setUpOtp }) {
           </p>
         </div>
 
-        <button onClick={verifyOTP} style={{marginTop:'0px'}} className="button-container  verify-button">Verify</button>
+        <button onClick={verifyOTP} style={{marginTop:'0px',backgroundColor:'#3e2780',color:'white',padding:'15px',borderRadius:'5px',width:'100px'}} className="button-container  verify-button">Verify</button>
       </form>
     </div>
   );
