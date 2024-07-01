@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 // import "./MainComponent.module.css"; // Import the CSS file
 import styles from './MainComponent.module.css'
 import Navbar from "./Other Components/Navbar";
 import FormPage from "./Other Components/Form";
-import OTPVerification from "./Other Components/OTPVerification";
+// import OTPVerification from "./Other Components/OTPVerification";
 import axios from 'axios';
 import './Other Components/Form.css';
-import AddInfo from "./Other Components/AddInfo";
-import LendersList from './Other Components/LendersList';
-import BankName from "./Other Components/BankName";
+// import AddInfo from "./Other Components/AddInfo";
+// import LendersList from './Other Components/LendersList';
+// import BankName from "./Other Components/BankName";
 import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../Footer';
 import KeyPartners from "./Other Components/KeyPartners";
@@ -19,6 +19,11 @@ import NewFooter from "./Other Components/NewFooter";
 import NewKeyPartners from "./Other Components/NewKeyPartners";
 import Loader from "./Other Components/Toader";
 import OtpVerifyLoader from "./Other Components/OtpVerifyLoader";
+
+const OTPVerification = lazy(() => import("./Other Components/OTPVerification"));
+const AddInfo = lazy(() => import("./Other Components/AddInfo"));
+const LendersList = lazy(() => import("./Other Components/LendersList"));
+const BankName = lazy(() => import("./Other Components/BankName"));
 
 function MainComponent() {
     // Usestates for maintaining the single page application without refreshing the page
@@ -406,34 +411,40 @@ function MainComponent() {
             </div>
             <div className={styles.lowerDiv}>
                 <div className={`container ${isTransitioning ? 'transitioning' : ''}`}>
-                    {showForm && <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} setFormData={setFormData} />}
-                    {showOTPVerification && !isTransitioning && <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange} otpStatus={otpStatus} />}
-                    {showAddInfo && <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} handleAddInfoFormSubmit2={handleAddInfoFormSubmit2} pan1={pan} dob1={dob} income1={income} salaryType1={salaryType} setPan1={setPan} setDob1={setDob} setIncome1={setIncome} setSalaryType1={setSalaryType} email1={email} pincode1={pincode} homePin1={homePin} setEmail1={setEmail} setPincode1={setPincode} setHomePin1={setHomePin} companyName1={companyName} setCompnanyName1={setCompanyName} goToLendersList={handleAddInfo} dobFlag={dobFlag} ResidentialPincodeFlag={ResidentialPincodeFlag}  />}
-                    {showLendersList && <LendersList json1={lenderDetails} onGetLoan={handleOnGetLoan} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} formData={formData}/>}
-                    {showBankNames && <BankName />}
+                    {showForm && (
+                        <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} setFormData={setFormData} />
+                    )}
+                    {showOTPVerification && !isTransitioning && (
+                        <Suspense fallback={<Loader />}>
+                            <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange} otpStatus={otpStatus} />
+                        </Suspense>
+                    )}
+                    {showAddInfo && (
+                        <Suspense fallback={<Loader />}>
+                            <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} handleAddInfoFormSubmit2={handleAddInfoFormSubmit2} pan1={pan} dob1={dob} income1={income} salaryType1={salaryType} setPan1={setPan} setDob1={setDob} setIncome1={setIncome} setSalaryType1={setSalaryType} email1={email} pincode1={pincode} homePin1={homePin} setEmail1={setEmail} setPincode1={setPincode} setHomePin1={setHomePin} companyName1={companyName} setCompnanyName1={setCompanyName} goToLendersList={handleAddInfo} dobFlag={dobFlag} ResidentialPincodeFlag={ResidentialPincodeFlag} />
+                        </Suspense>
+                    )}
+                    {showLendersList && (
+                        <Suspense fallback={<Loader />}>
+                            <LendersList json1={lenderDetails} onGetLoan={handleOnGetLoan} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} formData={formData} />
+                        </Suspense>
+                    )}
+                    {showBankNames && (
+                        <Suspense fallback={<Loader />}>
+                            <BankName />
+                        </Suspense>
+                    )}
                 </div>
-
-                {/* {showAddInfo && <Review />} */}
                 {showForm && <Review />}
-
                 <div style={{ marginBottom: '10px' }}>
                     {showForm && <LendingPartners />}
-                    {/* {showForm && <KeyPartners/>} */}
                     {showForm && <NewKeyPartners />}
                 </div>
-
-                {/* {/* {showAddInfo && <Footer />} */}
-                {/* {showForm && <Footer />} */}
-
             </div>
-
             {showForm && <NewFooter />}
             {showAddInfo && <NewFooter />}
-
-            {isLoading && <Loader/>}
-            {otpLoader && <OtpVerifyLoader/>}
-
-            {/* {showForm && <GridContainer/>} */}
+            {isLoading && <Loader />}
+            {otpLoader && <OtpVerifyLoader />}
         </>
     );
 };

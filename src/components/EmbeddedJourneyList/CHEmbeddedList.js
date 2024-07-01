@@ -13,7 +13,7 @@ import OTPBottomSheet from './OTPBottomSheet';
 
 
 
-const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate, lenderProduct, setLenderProduct, errorPopup2, setErrorPopup2, errorPopup, lenderCpi, setLenderCpi, lenderApplicationLink, setLenderApplicationLink}) => {
+const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate, lenderProduct, setLenderProduct, errorPopup2, setErrorPopup2, errorPopup, lenderCpi, setLenderCpi, lenderApplicationLink, setLenderApplicationLink, lender_id, setLender_id}) => {
   const [lenderName, setlenderName] = useState();
   const [link, setLink] = useState();
   const [isHidden, setIsHidden] = useState('none');
@@ -61,7 +61,7 @@ const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate
       console.log("Inside Usestate of lender product ", productsArr);
       
     }
-  }, [lenderProduct, productsArr, lenderCpi, lenderApplicationLink])
+  }, [lenderProduct, productsArr, lenderCpi, lenderApplicationLink, lender_id])
 
 
   // ----------------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate
 
       <div>
       {json1.lender_details.map((lender, index) => (
-        <div key={index} className={lender.product} >
+        <div key={index} className={lender.product_id} >
           <div  className="card-container">
               <div className="card-content">
               <div className="" style={{width:'50%',float:'left',margin:'auto'}}>
@@ -117,6 +117,7 @@ const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate
                   setProductsArr((prevProductsArr) => [...prevProductsArr, lender.product]);
                   setLenderCpi(lender.cpi);
                   setLenderApplicationLink(lender.applicationlink)
+                  setLender_id(lender.product_id);
                 }} size="small"
                   variant="contained"
                   className="getLoanButton">

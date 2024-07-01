@@ -1,7 +1,7 @@
 import React from "react";
 import $ from 'jquery';
 
-function ErrorPopup({setErrorPopup, lenderName, setErrorPopup2}) {
+function ErrorPopup({setErrorPopup, lenderName, setErrorPopup2, lender_id}) {
 
     const handleButtonClick = () => {
         // window.location.href = link;
@@ -10,7 +10,7 @@ function ErrorPopup({setErrorPopup, lenderName, setErrorPopup2}) {
 
         console.log(lenderName);
 
-        $(`.${lenderName}`).css("display", "none");
+        $(`.${lender_id}`).css("display", "none");
       };
 
     return (

@@ -42,6 +42,8 @@ const BaseComponent = () => {
   const [lenderApplicationLink, setLenderApplicationLink] = useState('');
   const [redirectionLinkLoader, setRedirectionLinkLoader] = useState(false);
 
+  const [lender_id, setLender_id] = useState('');
+
   // const [formData2, setFormData2] = useState();
 
   var json = null;
@@ -325,12 +327,12 @@ const BaseComponent = () => {
         {redirectionLinkLoader && <LinkLoader lendername={lenderProduct}/>}
         {!otpVerifyLoader && apiExecutionLoader && <ApplicationLoader />}
         {otpVerifyLoader && <OtpVerifyLoader />}
-        {!apiExecutionLoader && errorPopup && <ErrorPopup setErrorPopup={setErrorPopup} setErrorPopup2={setErrorPopup2} lenderName={lenderProduct} />}
+        {!apiExecutionLoader && errorPopup && <ErrorPopup setErrorPopup={setErrorPopup} setErrorPopup2={setErrorPopup2} lenderName={lenderProduct} lender_id={lender_id} setLender_id={setLender_id}/>}
         {isCameFromBackend && <ApplicationPopup link={link} lenderName={lenderName} />}
         {isGettingLenders && <Toader />}
         {
 
-          CHEmbeddedListFlag && <CHEmbeddedList json1={lenderDetails} mobileNumber={mobileNumber} OTPGenerate={OTPGenerate} isVisible={isVisible} setIsVisible={setIsVisible} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} errorPopup2={errorPopup2} lenderApplicationLink={lenderApplicationLink} lenderCpi={lenderCpi} setLenderCpi={setLenderCpi} setLenderApplicationLink={setLenderApplicationLink} />
+          CHEmbeddedListFlag && <CHEmbeddedList json1={lenderDetails} mobileNumber={mobileNumber} OTPGenerate={OTPGenerate} isVisible={isVisible} setIsVisible={setIsVisible} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} errorPopup2={errorPopup2} lenderApplicationLink={lenderApplicationLink} lenderCpi={lenderCpi} setLenderCpi={setLenderCpi} setLenderApplicationLink={setLenderApplicationLink} lender_id={lender_id} setLender_id={setLender_id} />
         }{isVisible && <OTPBottomSheet isVisible={isVisible} verifyOTP={verifyOTP} upotp={upotp} otpStatus={otpStatus} setUpOtp={setUpOtp} />}
       </div>
       {/* {<OTPBottomSheet/>} */}
