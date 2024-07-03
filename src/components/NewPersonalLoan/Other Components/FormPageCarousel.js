@@ -4,6 +4,7 @@ import NewFormPageImage from '../NewPersonalLoanImages/NewFormPageImage.png';
 import NewFormPageImage2 from '../NewPersonalLoanImages/FormPageImage2.png';
 import NewFormPageImage3 from '../NewPersonalLoanImages/FormPageImage3.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 const Carousel = () => {

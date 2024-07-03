@@ -51,6 +51,7 @@ const BaseComponent = () => {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const mobileNumber = params.get('mobilenumber');
+  const SSO = params.get('sso');
 
   const [stgOneHitId, setStgOneHitId] = useState(null);
   const [stgTwoHitId, setstgTwoHitId] = useState(null);
@@ -108,6 +109,11 @@ const BaseComponent = () => {
 
   useEffect(() => {
     getLendersList();
+
+    if(SSO === 'yes'){
+      setIsOtpVerified(true);
+    }
+
   }, []);
 
   useEffect(() => {
@@ -332,7 +338,7 @@ const BaseComponent = () => {
         {isGettingLenders && <Toader />}
         {
 
-          CHEmbeddedListFlag && <CHEmbeddedList json1={lenderDetails} mobileNumber={mobileNumber} OTPGenerate={OTPGenerate} isVisible={isVisible} setIsVisible={setIsVisible} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} errorPopup2={errorPopup2} lenderApplicationLink={lenderApplicationLink} lenderCpi={lenderCpi} setLenderCpi={setLenderCpi} setLenderApplicationLink={setLenderApplicationLink} lender_id={lender_id} setLender_id={setLender_id} />
+          CHEmbeddedListFlag && <CHEmbeddedList json1={lenderDetails} mobileNumber={mobileNumber} OTPGenerate={OTPGenerate} isVisible={isVisible} setIsVisible={setIsVisible} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} errorPopup2={errorPopup2} lenderApplicationLink={lenderApplicationLink} lenderCpi={lenderCpi} setLenderCpi={setLenderCpi} setLenderApplicationLink={setLenderApplicationLink} lender_id={lender_id} setLender_id={setLender_id} SSO={SSO} />
         }{isVisible && <OTPBottomSheet isVisible={isVisible} verifyOTP={verifyOTP} upotp={upotp} otpStatus={otpStatus} setUpOtp={setUpOtp} />}
       </div>
       {/* {<OTPBottomSheet/>} */}

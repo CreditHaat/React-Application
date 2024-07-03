@@ -13,7 +13,7 @@ import OTPBottomSheet from './OTPBottomSheet';
 
 
 
-const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate, lenderProduct, setLenderProduct, errorPopup2, setErrorPopup2, errorPopup, lenderCpi, setLenderCpi, lenderApplicationLink, setLenderApplicationLink, lender_id, setLender_id}) => {
+const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate, lenderProduct, setLenderProduct, errorPopup2, setErrorPopup2, errorPopup, lenderCpi, setLenderCpi, lenderApplicationLink, setLenderApplicationLink, lender_id, setLender_id, SSO}) => {
   const [lenderName, setlenderName] = useState();
   const [link, setLink] = useState();
   const [isHidden, setIsHidden] = useState('none');
@@ -45,6 +45,7 @@ const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate
 
   const handleOTPComponent = () => {
     OTPGenerate();
+    
     // setIsVisible(true);
 
   };
