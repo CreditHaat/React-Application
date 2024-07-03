@@ -88,15 +88,19 @@ return (
       {json1.lender_details.map((lender, index) => (
         <div key={index} className="card-container">
           <div className="card-content">
-            <img alt="logo" src={lender.logo} className="logo" />
-            <div className="text-content">
+          <div className="" style={{width:'50%',float:'left',margin:'auto'}}>
+          <div className="text-content" style={{width:'50%',padding:'10px',margin:'auto',marginLeft:'0px'}}>
+            <img alt="logo" src={lender.logo} className="logo" style={{display:'flex',justifyContent:'center',width:'100%',height:'auto',maxWidth:'120px',minWidth:'90px'}} />
+            </div>
+            </div>
+            <div className="text-content" style={{width:'50%',float:'right'}}>
               <Typography variant="h5" component="div" className="title" style={{ fontFamily: 'Times New Roman, Times, serif' }}>
                 {lender.product}
               </Typography>
               <Typography variant="body2" color="textSecondary" className="data" style={{ fontFamily: 'Times New Roman, Times, serif' }}>
                 Quick Loans, 100% digital collateral-free
               </Typography>
-            </div>
+              </div>
           </div>
           <div className="details">
             <div className="detail">
