@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './FormPageCarousel.css'; // Import your CSS file for styling
-// import NewFormPageImage from '../NewPersonalLoanImages/NewFormPageImage.png';sdfsdas
-// import NewFormPageImage2 from '../NewPersonalLoanImages/FormPageImage2 (2).png';
 import NewFormPageImage from '../NewPersonalLoanImages/NewFormPageImage.png';
 import NewFormPageImage2 from '../NewPersonalLoanImages/FormPageImage2.png';
 import NewFormPageImage3 from '../NewPersonalLoanImages/FormPageImage3.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
-// import NewFormPageImage from '../NewPersonalLoanImages/FormPage1.png';
 
 
-const Carousel = ({ images }) => {
+const Carousel = () => {
 
     return (
         <>

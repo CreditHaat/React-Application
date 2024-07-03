@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
-import logo2 from '../NewPersonalLoanImages/happy image3.png'
+import React, { useEffect, useState, lazy, Suspense  } from "react";
 import './Form.css'
-import happyImage from '../NewPersonalLoanImages/happy image3.png'
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import formPageImage from '../NewPersonalLoanImages/Form Page Image.png';
-import formPageImage2 from '../NewPersonalLoanImages/FormPageImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FormPageCarousel from "./FormPageCarousel";
-// import NewFormPageImage from '../NewPersonalLoanImages/NewFormPageImage-removebg-preview.png';
-import NewFormPageImage from '../NewPersonalLoanImages/NewFormPageImage.png';
-// import NewFormPageImage2 from '../NewPersonalLoanImages/FormPageImage2 (2).png';
-import NewFormPageImage2 from '../NewPersonalLoanImages/FormPageImage2.png';
-import NewFormPageImage3 from '../NewPersonalLoanImages/FormPageImage3.png';
+// import FormPageCarousel from "./FormPageCarousel";
+
+const FormPageCarousel = lazy(() => import("./FormPageCarousel"));
 
 function FormPage({ formData, handleChange, onSubmit, setFormData }) {
     const [errors, setErrors] = useState({});
@@ -34,9 +27,7 @@ function FormPage({ formData, handleChange, onSubmit, setFormData }) {
             errors.mobileNumber = "Please enter a valid 10-digit mobile number";
         }
         if(!formData.profession){
-            console.log("Inside formData profession");
             errors.profession = "Profession is required";
-            console.log("Inside formData profession : ",errors.profession);
         }
         setErrors(errors);
         return Object.keys(errors).length === 0;
@@ -48,15 +39,7 @@ function FormPage({ formData, handleChange, onSubmit, setFormData }) {
         }
     };
 
-    const images = [
-        NewFormPageImage,
-        NewFormPageImage2,
-        NewFormPageImage3,
-        // Add more image URLs as needed
-      ];
-
       useEffect(() => {
-        console.log(formData.profession);
         // handleChange(e);
     }, [formData.profession]);
 
@@ -74,13 +57,16 @@ function FormPage({ formData, handleChange, onSubmit, setFormData }) {
 
     return (
         <>
-        {console.log(formData.profession)}
             <section className="container banner" style={{borderRadius: '20px', marginTop: '10px', backgroundColor: '#f2edff' }}>
                 <div className="row py-md-5 px-md-5" style={{ display: "flex" }}>
                 {/* style={{height:'220px'}} */}
                     <div className="col-md-6">
+                        {
+                            <Suspense>
+                                <FormPageCarousel/>
+                            </Suspense>
+                        }
                         
-                        <FormPageCarousel images={images}/>
                         
                     </div>
                     <div className="col-md-6 py-md-5 px-md-5" style={{ justifyContent: "center", alignItems: "center" }}>
@@ -107,7 +93,6 @@ function FormPage({ formData, handleChange, onSubmit, setFormData }) {
                                         <option value="Self employed">Self Employed</option>
                                         <option value="Business">Business</option>
                                     </select>
-                                    {console.log("Inside : ", errors.profession)}
                                     {errors.profession && <div className="invalid-feedback">{errors.profession}</div>}
 
                                 </div>

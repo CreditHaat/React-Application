@@ -45,7 +45,6 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
         let timer;
         if (dobFlag === true) {
             if (income && parseInt(income) >= 0 && pan && panErrorFlag && salaryType && dob) {
-                console.log("Inside Pan Error Flag : ", panErrorFlag)
                 timer = setTimeout(() => {
                     const syntheticEvent = {
                         preventDefault: () => { },
@@ -57,7 +56,6 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
             }
         } else {
             if (income && parseInt(income) >= 0 && pan && panErrorFlag && salaryType) {
-                console.log("Inside Pan Error Flag : ", panErrorFlag)
                 timer = setTimeout(() => {
                     const syntheticEvent = {
                         preventDefault: () => { },
@@ -83,12 +81,10 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
 
 
     useEffect(() => {
-        console.log("Inside pan useEffect")
         const panRegex = /^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/;
         if (pan && !panRegex.test(pan)) {
             setErrorMessage(prevErrorMessage => prevErrorMessage ? prevErrorMessage : 'Invalid PAN');
             setPanErrorFlag(false);
-            console.log("inside useEffect for pan : ", panErrorFlag);
         } else {
             setErrorMessage(prevErrorMessage => prevErrorMessage === 'Invalid PAN' ? '' : prevErrorMessage);
             setPanErrorFlag(true);

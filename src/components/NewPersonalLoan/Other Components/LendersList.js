@@ -65,7 +65,6 @@ const LendersList = ({ json1, onGetLoan, lenderProduct, setLenderProduct,formDat
       setErrorPopup(true); //This will be true when the code will be -1
     }
 
-    console.log("for partner page",response);
 
     }catch(error){
 
@@ -83,9 +82,7 @@ return (
 
     {/* {loadLendersList && <LendersList/>} */}
 
-    {console.log("FormData : ",formData)}
 
-    {console.log("in lendersList json : ",json1.lender_details)}
 
     <div>
       {json1.lender_details.map((lender, index) => (

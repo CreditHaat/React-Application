@@ -1,25 +1,19 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
-// import "./MainComponent.module.css"; // Import the CSS file
 import styles from './MainComponent.module.css'
-import Navbar from "./Other Components/Navbar";
-import FormPage from "./Other Components/Form";
-// import OTPVerification from "./Other Components/OTPVerification";
 import axios from 'axios';
 import './Other Components/Form.css';
-// import AddInfo from "./Other Components/AddInfo";
-// import LendersList from './Other Components/LendersList';
-// import BankName from "./Other Components/BankName";
 import { useLocation, useNavigate } from 'react-router-dom';
-import Footer from '../Footer';
-import KeyPartners from "./Other Components/KeyPartners";
-import Review from "./Other Components/Review";
-import LendingPartners from './Other Components/LendingPartners'
-// import GridContainer from "./Other Components/NewFooter";
-import NewFooter from "./Other Components/NewFooter";
-import NewKeyPartners from "./Other Components/NewKeyPartners";
-import Loader from "./Other Components/Toader";
-import OtpVerifyLoader from "./Other Components/OtpVerifyLoader";
+import FormPage from './Other Components/Form';
 
+// Lazy loading components
+const Navbar = lazy(() => import("./Other Components/Navbar"));
+const Review = lazy(() => import("./Other Components/Review"));
+const LendingPartners = lazy(() => import('./Other Components/LendingPartners'));
+const NewFooter = lazy(() => import("./Other Components/NewFooter"));
+const NewKeyPartners = lazy(() => import("./Other Components/NewKeyPartners"));
+const OtpVerifyLoader = lazy(() => import("./Other Components/OtpVerifyLoader"));
+
+const Loader = lazy(() => import("./Other Components/Toader"));
 const OTPVerification = lazy(() => import("./Other Components/OTPVerification"));
 const AddInfo = lazy(() => import("./Other Components/AddInfo"));
 const LendersList = lazy(() => import("./Other Components/LendersList"));
@@ -87,8 +81,6 @@ function MainComponent() {
             const subSource = queryParams.get('sub_source') || '';
             const subDsa = queryParams.get('sub_dsa') || '';
 
-            console.log(formData.mobileNumber);
-
             const urllink = location.search?.split('?')[1] || 'null';
 
             const formData1 = new FormData();
@@ -120,10 +112,7 @@ function MainComponent() {
 
             }
 
-            console.log(response);
-
             if (response.status === 200) {
-                console.log('Submission successful:', response.data);
             } else {
                 console.error('Submission failed:', response.statusText);
             }
@@ -136,7 +125,6 @@ function MainComponent() {
         // e.preventDefault();
 
         setOtpLoader(true);
-
         try {
             const formData1 = new FormData();
             formData1.append('mobileNumber', formData.mobileNumber);
@@ -148,64 +136,57 @@ function MainComponent() {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}verifyOTPNewPersonalloan`, formData1);
 
             if (response.data.code === 0) {
-                // setOtpStatus("Loading ...");
                 setDobFlag(false);
                 setResidentialPincodeFlag(false);
                 setTimeout(() => {
                     setOtpLoader(false);
                     setShowOTPVerification(false);
                     setShowAddInfo(true);
-                  }, 3000);
-                
-                
+                }, 3000);
+
+
             }
             else if (response.data.code === 1) {
-                // setOtpStatus("Loading ...");
                 setDobFlag(true);
                 setResidentialPincodeFlag(false);
                 setTimeout(() => {
                     setOtpLoader(false);
                     setShowOTPVerification(false);
                     setShowAddInfo(true);
-                  }, 3000);
-                
-                
+                }, 3000);
+
+
             }
-            
+
             else if (response.data.code === 2) {
-                // setOtpStatus("Loading ...");
                 setResidentialPincodeFlag(true);
                 setDobFlag(false);
                 setTimeout(() => {
                     setOtpLoader(false);
                     setShowOTPVerification(false);
                     setShowAddInfo(true);
-                  }, 3000);
-                
-                
+                }, 3000);
+
+
             }
             else if (response.data.code === 3) {
-                // setOtpStatus("Loading ...");
                 setResidentialPincodeFlag(true);
                 setDobFlag(true);
                 setTimeout(() => {
                     setOtpLoader(false);
                     setShowOTPVerification(false);
                     setShowAddInfo(true);
-                  }, 3000);
-                
-                
+                }, 3000);
+
+
             }
             else {
                 setOtpLoader(false);
-                console.log("Incorrect OTP");
                 setOtpStatus("Incorrect OTP! Try Again..");
             }
 
-            console.log(response);
 
             if (response.status === 200) {
-                console.log('Submission successful:', response.data);
             } else {
                 console.error('Submission failed:', response.statusText);
             }
@@ -218,26 +199,12 @@ function MainComponent() {
         e.preventDefault();
         try {
 
-            console.log("Tejas ", pan);
-            console.log(income);
-            console.log(salaryType);
-
-
-
             const formData1 = new FormData();
             formData1.append('mobileNumber', formData.mobileNumber);
             formData1.append('pan', pan);
             formData1.append('dob', dob);
             formData1.append('income', income);
             formData1.append('salaryType', salaryType);
-            // formData1.append('t_experian_log_id',t_experian_log_id);
-
-
-            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL}chfronetendotpgenerator`, formData1, {
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            // });
 
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}secondpageNewpersonalloan`, formData1);
 
@@ -245,10 +212,7 @@ function MainComponent() {
 
             }
 
-            console.log(response);
-
             if (response.status === 200) {
-                console.log('Submission successful:', response.data);
             } else {
                 console.error('Submission failed:', response.statusText);
             }
@@ -269,37 +233,20 @@ function MainComponent() {
             formData1.append('homePin', homePin);
             formData1.append('companyName', companyName);
 
-            // formData1.append('t_experian_log_id',t_experian_log_id);
-
-
-            // const response = await axios.post(`${process.env.REACT_APP_BASE_URL}chfronetendotpgenerator`, formData1, {
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            // });
-
             setIsLoading(true);
 
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}thirdpageNewpersonalloan`, formData1);
 
             if (response.data.code === 0) {
 
-                console.log('Submission successful:', response.data);
 
                 //Here when the code is 0 we are calling lendersList backend which will give us lendersList accrding to user
                 getLendersList(e);
 
-                
-
-                // setShowAddInfo(false);
-                // setShowLendersList(true);
-
             }
 
-            console.log(response);
 
             if (response.status === 200) {
-                console.log("When 200")
 
             } else {
                 console.error('Submission failed:', response.statusText);
@@ -328,21 +275,18 @@ function MainComponent() {
 
             setTimeout(() => {
                 setIsLoading(false);
-              }, 3000);
-            console.log(response);
+            }, 3000);
 
             if (response.data.code === 200) {
-                console.log('Submission successful from Lenders Backend:', response.data);
                 json = response.data.data;
                 setLenderDetails(json);
-                console.log("Recieved Data from backend ", json);
 
                 setShowAddInfo(false);
                 setShowLendersList(true);
             }
 
             if (response.status === 200) {
-                
+
             } else {
                 console.error('Submission failed:', response.statusText);
             }
@@ -351,13 +295,12 @@ function MainComponent() {
         }
     };
 
-    useEffect(()=>{
-        console.log('Lender Details in useState : ',lenderDetails);
-    },[lenderDetails]);
+    useEffect(() => {
+    }, [lenderDetails]);
 
     //This funtion is used to call the backend on getLoan button
 
-    
+
     const handleOtpChange = (newValue) => {
         setUpotp(newValue);
     };
@@ -407,44 +350,82 @@ function MainComponent() {
     return (
         <>
             <div className={styles.upperDiv}>
-                <Navbar />
+                <Suspense>
+                    <Navbar />
+                </Suspense>
             </div>
             <div className={styles.lowerDiv}>
                 <div className={`container ${isTransitioning ? 'transitioning' : ''}`}>
                     {showForm && (
-                        <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} setFormData={setFormData} />
+                        <Suspense>
+
+                            <FormPage onSubmit={handleSubmit} formData={formData} handleChange={handleChange} setFormData={setFormData} />
+                        </Suspense>
                     )}
                     {showOTPVerification && !isTransitioning && (
-                        <Suspense fallback={<Loader />}>
+                        <Suspense>
                             <OTPVerification verifyOTP={handleOTPVerification} upotp={upotp} handleOtpChange={handleOtpChange} otpStatus={otpStatus} />
                         </Suspense>
                     )}
                     {showAddInfo && (
-                        <Suspense fallback={<Loader />}>
+                        <Suspense>
                             <AddInfo handleAddInfoFormSubmit={handleAddInfoFormSubmit} handleAddInfoFormSubmit2={handleAddInfoFormSubmit2} pan1={pan} dob1={dob} income1={income} salaryType1={salaryType} setPan1={setPan} setDob1={setDob} setIncome1={setIncome} setSalaryType1={setSalaryType} email1={email} pincode1={pincode} homePin1={homePin} setEmail1={setEmail} setPincode1={setPincode} setHomePin1={setHomePin} companyName1={companyName} setCompnanyName1={setCompanyName} goToLendersList={handleAddInfo} dobFlag={dobFlag} ResidentialPincodeFlag={ResidentialPincodeFlag} />
                         </Suspense>
                     )}
                     {showLendersList && (
-                        <Suspense fallback={<Loader />}>
+                        <Suspense>
                             <LendersList json1={lenderDetails} onGetLoan={handleOnGetLoan} lenderProduct={lenderProduct} setLenderProduct={setLenderProduct} formData={formData} />
                         </Suspense>
                     )}
                     {showBankNames && (
-                        <Suspense fallback={<Loader />}>
+                        <Suspense>
                             <BankName />
                         </Suspense>
                     )}
                 </div>
-                {showForm && <Review />}
+                {showForm &&
+                    <Suspense>
+
+                        <Review />
+                    </Suspense>
+                }
                 <div style={{ marginBottom: '10px' }}>
-                    {showForm && <LendingPartners />}
-                    {showForm && <NewKeyPartners />}
+                    {showForm &&
+                        <Suspense>
+                            
+                            <LendingPartners />
+                        </Suspense>
+                    }
+                    {showForm &&
+                        <Suspense>
+                           
+                            <NewKeyPartners />
+                        </Suspense>
+                    }
                 </div>
             </div>
-            {showForm && <NewFooter />}
-            {showAddInfo && <NewFooter />}
-            {isLoading && <Loader />}
-            {otpLoader && <OtpVerifyLoader />}
+            {showForm &&
+                <Suspense>
+                   
+                    <NewFooter />
+                </Suspense>}
+            {showAddInfo &&
+                <Suspense>
+                    
+                    <NewFooter />
+                </Suspense>
+            }
+            {isLoading &&
+                <Suspense>
+
+                    <Loader />
+                </Suspense>
+            }
+            {otpLoader &&
+                <Suspense>
+                    <OtpVerifyLoader />
+                </Suspense>
+            }
         </>
     );
 };

@@ -25,7 +25,6 @@ const DatePicker = ({dob,dob1,setDob, setDob1, handleDateChange, setErrorMessage
   }, []);
 
   useEffect(() => {
-    console.log("In DatePicker", dob);
 
     if (dob) {
       // Split the date string (assuming it's in dd-mm-yyyy format)
@@ -63,14 +62,12 @@ const DatePicker = ({dob,dob1,setDob, setDob1, handleDateChange, setErrorMessage
           }
         } else {
           // Handle invalid date format or NaN
-          console.log("Invalid date format or value");
           setAge(0);
           setFlag(false);
           setErrorMessage("Invalid date format. Please enter date in dd-mm-yyyy format.");
         }
       } else {
         // Handle invalid input format
-        console.log("Invalid input format");
         setAge(0);
         setFlag(false);
         setErrorMessage("Invalid input format. Please enter date in dd-mm-yyyy format.");

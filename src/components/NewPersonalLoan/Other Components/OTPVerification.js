@@ -75,8 +75,6 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
 //We are using this useEffect for calling the otpVarify function when the user enters the otp
       useEffect(() => {
         if (upotp.length === 6) {
-          
-          console.log("oTP LENGTH IS : ", upotp.length);
           verifyOTP();
           // setTempOtp('');
 

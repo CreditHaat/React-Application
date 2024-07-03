@@ -29,6 +29,8 @@ const OTPBottomSheet = ({isVisible, verifyOTP, upotp, otpStatus, setUpOtp}) => {
     transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
     padding: '20px', // Add padding for better layout
     textAlign: 'center', // Center align content
+    borderTopLeftRadius:"15px",
+    borderTopRightRadius:"15px",
   };
 
   const inputStyle = {
