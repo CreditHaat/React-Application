@@ -419,7 +419,7 @@ background-color: white;
                         <div className="webtracfficdata">
                             <div className="trafficbox">
                                 <div className="row">
-                                    <center>80L</center>
+                                    <center><b>80L</b></center>
                                 </div>
                                 <div className="row">
                                     <center>Registered users</center>
@@ -427,7 +427,7 @@ background-color: white;
                             </div>
                             <div className="trafficbox" style={{borderLeft:'1px solid black'}}>
                                 <div className="row">
-                                    <center>45+</center>
+                                    <center><b>45+</b></center>
                                 </div>
                                 <div className="row">
                                     <center>Lending Partners</center>
@@ -435,7 +435,7 @@ background-color: white;
                             </div>
                             <div className="trafficbox" style={{borderLeft:'1px solid black'}}>
                                 <div className="row">
-                                    <center>₹1200Cr+</center>
+                                    <center><b>₹1200Cr+</b></center>
                                 </div>
                                 <div className="row">
                                     <center>Disbursed</center> <span className="thirdblock" style={{color:'white'}}>.</span>

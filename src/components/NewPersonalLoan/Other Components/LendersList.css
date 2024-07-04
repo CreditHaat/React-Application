@@ -91,8 +91,9 @@
     background-color: #3E2780;
     color: white;
     border-radius: 5px;
-    height: 50px;
-    width: 100px;
+    height: 55px;
+    width: 150px;
+    font-size: 16px;
   }
   .data{
     color:green;
