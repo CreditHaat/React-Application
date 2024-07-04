@@ -347,6 +347,7 @@ function MainComponent() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+
     return (
         <>
             <div className={styles.upperDiv}>
@@ -385,20 +386,79 @@ function MainComponent() {
                 </div>
                 {showForm &&
                     <Suspense>
+                        <style>
+                            {
+                                `
+                .webtracfficdata {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
 
-                        <Review />
+.trafficbox {
+  flex: 1;
+  margin: 4px;
+  padding: 10px;
+//   background-color: #f0f0f0;
+background-color: white;
+  text-align: center;
+}
+
+/* Media query for desktop screens */
+@media (min-width: 515px) {
+  .thirdblock {
+   display:none;
+  }
+            `
+                            }
+                        </style>
+
+
+                            <div className="container">
+                        <div className="webtracfficdata">
+                            <div className="trafficbox">
+                                <div className="row">
+                                    <center>80L</center>
+                                </div>
+                                <div className="row">
+                                    <center>Registered users</center>
+                                </div>
+                            </div>
+                            <div className="trafficbox" style={{borderLeft:'1px solid black'}}>
+                                <div className="row">
+                                    <center>45+</center>
+                                </div>
+                                <div className="row">
+                                    <center>Lending Partners</center>
+                                </div>
+                            </div>
+                            <div className="trafficbox" style={{borderLeft:'1px solid black'}}>
+                                <div className="row">
+                                    <center>₹1200Cr+</center>
+                                </div>
+                                <div className="row">
+                                    <center>Disbursed</center> <span className="thirdblock" style={{color:'white'}}>.</span>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+
+
+                        {/* <Review /> */}
                     </Suspense>
                 }
                 <div style={{ marginBottom: '10px' }}>
                     {showForm &&
                         <Suspense>
-                            
+
                             <LendingPartners />
                         </Suspense>
                     }
                     {showForm &&
                         <Suspense>
-                           
+
                             <NewKeyPartners />
                         </Suspense>
                     }
@@ -406,12 +466,12 @@ function MainComponent() {
             </div>
             {showForm &&
                 <Suspense>
-                   
+
                     <NewFooter />
                 </Suspense>}
             {showAddInfo &&
                 <Suspense>
-                    
+
                     <NewFooter />
                 </Suspense>
             }
@@ -426,6 +486,9 @@ function MainComponent() {
                     <OtpVerifyLoader />
                 </Suspense>
             }
+
+
+
         </>
     );
 };

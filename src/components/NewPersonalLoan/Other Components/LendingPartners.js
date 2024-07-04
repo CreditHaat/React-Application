@@ -69,7 +69,7 @@ function KeyPartners() {
     return (
         <>
             <div className="" style={{ margin: 'auto' }}>
-                <h5 style={{ marginTop: '15px', textAlign: 'center', fontFamily: '', fontWeight: '', fontSize:'calc(1.325rem + .9vw)' }}>45+ Partner lenders including</h5>
+                <h5 style={{ marginTop: '15px', textAlign: 'center', fontFamily: '', fontWeight: '', fontSize:'calc(1.325rem + .9vw)' }}>Our lending partners</h5>
             </div>
             <div className="lenders">
                 <div style={{ marginTop: '15px', loading: "lazy" }}>

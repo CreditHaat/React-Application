@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './OTPVerification.css';
 
 function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [tempOtp, setTempOtp] = useState("");
+
+  const hiddenButtonRef = React.useRef(null);
 
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -29,20 +31,14 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
 
       setOtp(newOtp);
 
+      if (newOtp.join("").length === 6) {
+        // Move focus to hidden button to hide numeric keypad
+        if (hiddenButtonRef.current) {
+          hiddenButtonRef.current.focus();
+        }
+      }         
+
       setTempOtp(newOtp.join(""));
-
-      //This code is for automatically rendering next page when otp is verified from backend
-
-      // const enteredOTP = newOtp.join("");
-      // if (enteredOTP.length === 6) {
-        
-      //   // Check if entered OTP is correct (for demonstration purposes)
-      //   console.log("entered otp is ---------- ",enteredOTP);
-
-      //   verifyOTP();
-      // }
-
-      //-------------------------------------------------------------------------------
     
     }
   };
@@ -82,9 +78,9 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
       }, [upotp]);
 /////////////////////////////
   return (
-    <div className="otp-container">
-      <h2>Fill OTP</h2>
-      <h4 style={{paddingLeft:'0px'}} className="terms-text">Please enter the 6 digit code sent <br></br>to your mobile number for verification.</h4>
+    <div className="otp-container" style={{ borderRadius: '20px', marginTop: '10px', backgroundColor: '#f2edff' }}>
+      <h2>Mobile Number Verification</h2>
+      <h4 ref={hiddenButtonRef}  style={{paddingLeft:'0px'}} className="terms-text">Please enter OTP to verify mobile number</h4>
       <form style={{textAlign:'center'}} onSubmit={handleSubmit}>
         <div style={{textAlign:'center'}} className="otp-inputs">
           {otp.map((data, index) => (

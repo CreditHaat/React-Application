@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import logo2 from '../NewPersonalLoanImages/happy image3.png'
 // import './Form.css'
 import happyImage from '../NewPersonalLoanImages/happy image3.png'
@@ -7,7 +7,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import AddInfoPageImage from '../NewPersonalLoanImages/AddInfoPageImage.png';
 // import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImg.png';
 import './AddInfo.css';
-import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImage.png';
+import AddInfoPageImg from '../NewPersonalLoanImages/AddInfoPageImage2.png';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Height, WidthFull } from "@mui/icons-material";
@@ -15,7 +15,6 @@ import { width } from "@mui/system";
 import DatePicker1 from './DatePicker'
 
 function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1, income1, salaryType1, setPan1, setDob1, setIncome1, setSalaryType1, email1, pincode1, homePin1, setEmail1, setPincode1, setHomePin1, companyName1, setCompnanyName1, goToLendersList, dobFlag, ResidentialPincodeFlag }) {
-
 
     const [step, setStep] = useState(1); // State to track the current step
     // const [profession, setProfession] = useState('');
@@ -38,7 +37,15 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
 
     const [selectedDate, setSelectedDate] = useState(null);
 
+    const inputRef = useRef(null);
+    const formContainerRef = useRef(null);
 
+    const scrollToInput = () => {
+        // inputRef.current is the DOM node of the input field
+        if (inputRef.current && window.innerWidth < 768) {
+            inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+        }
+    };
 
     useEffect(() => {
         // Adjusted logic to prevent premature step change on income field change
@@ -159,6 +166,8 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
         }
     };
 
+    const [inputMode, setInputMode] = useState("text");
+
     const handleInputChange = (value, fieldName) => {
         // Check if the previous field is filled before accepting input for the current field
         switch (fieldName) {
@@ -219,19 +228,22 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
         // If previous field is filled, update the state and clear error message
         switch (fieldName) {
             case 'PAN':
+                if (value.length < 5) {
+                    // First 5 characters: uppercase alphabets
+                    setInputMode("text");
+                  } else if (value.length < 9) {
+                    // Next 4 characters: numeric
+                    setInputMode("numeric");
+                  } else {
+                    // Last character: uppercase alphabet  
+                    setInputMode("text");
+                  }
 
-                setPan(value.toUpperCase());
+                  if(value.length<=10)
+                    {
+                        setPan(value.toUpperCase());
                 setPan1(value.toUpperCase());
-
-                // setFormData(prevFormData => [...prevFormData, {
-                //     'pan': value
-                // }]);
-
-
-                // formData({
-
-                //     pan : value
-                // })
+                    }
 
                 setErrorMessage('');
                 break;
@@ -287,7 +299,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
 
     return (
         <>
-            <section className="container banner" style={{ borderRadius: '20px', marginTop: '10px', backgroundColor: '#f2edff' }}>
+            <section ref={formContainerRef} className="container banner" style={{ borderRadius: '20px', marginTop: '10px', backgroundColor: '#f2edff' }}>
                 <div className="row py-md-5 px-md-5" style={{ display: "flex" }}>
                     <div className="col-md-6">
                         <div className="row" style={{ display: "flex" }}>
@@ -312,11 +324,12 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
                                     {/* From Here We will add the form Contents which should slide after filling all the details */}
                                     <div className="row" style={{ display: "flex" }}>
                                         <div className="input-group mb-5">
-                                            <input type="text" className="form-control textBox" placeholder="PAN" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
+                                            <input ref={inputRef} type="text" className="form-control textBox" placeholder="PAN" onFocus={scrollToInput} aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
 
                                                 style={{ textTransform: 'uppercase' }}
                                                 value={pan && pan1}
                                                 onChange={(e) => handleInputChange(e.target.value, 'PAN')}
+                                                inputMode={inputMode}
                                             />
 
                                         </div>
@@ -348,7 +361,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
 
 
                                         <div className="input-group mb-5">
-                                            <input type="number" className="form-control textBox" placeholder="Enter Your Monthly Income" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
+                                            <input ref={inputRef} type="number" className="form-control textBox" placeholder="Enter Your Monthly Income" onFocus={scrollToInput} aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
                                                 value={income && income1}
                                                 onChange={(e) => handleInputChange(e.target.value, 'income')}
                                             />
@@ -384,7 +397,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
                                     <div className="row" style={{ display: "flex" }}>
 
                                         <div className="input-group mb-5">
-                                            <input type="email" placeholder="Enter Your Email" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
+                                            <input ref={inputRef} type="email" placeholder="Personal email" className="form-control" onFocus={scrollToInput} aria-label="Last Name" aria-describedby="last-name-icon"
                                                 value={email}
                                                 onChange={(e) => handleInputChange(e.target.value, 'email')}
                                             />
@@ -392,7 +405,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
                                         </div>
 
                                         <div className="input-group mb-5">
-                                            <input type="text" className="form-control textBox" placeholder="Enter Your Company Name" aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
+                                            <input ref={inputRef} type="text" className="form-control textBox" placeholder="Company name" onFocus={scrollToInput} aria-label="Last Name" aria-describedby="last-name-icon" name="lastName"
                                                 value={companyName && companyName1}
                                                 onChange={(e) => handleInputChange(e.target.value, 'companyName')}
                                             />
@@ -400,7 +413,7 @@ function AddInfo({ handleAddInfoFormSubmit, handleAddInfoFormSubmit2, pan1, dob1
                                         </div>
 
                                         <div className="input-group mb-5">
-                                            <input type="number" placeholder="Enter Your Office Pincode" className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
+                                            <input ref={inputRef} type="number" placeholder="Office pincode" onFocus={scrollToInput} className="form-control" aria-label="Last Name" aria-describedby="last-name-icon"
                                                 value={pincode}
                                                 onChange={(e) => handleInputChange(e.target.value, 'pincode')}
 

@@ -98,7 +98,7 @@ return (
                 {lender.product}
               </Typography>
               <Typography variant="body2" color="textSecondary" className="data" style={{ fontFamily: 'Times New Roman, Times, serif' }}>
-                Quick Loans, 100% digital collateral-free
+                {lender.description}
               </Typography>
               </div>
           </div>
@@ -128,7 +128,7 @@ return (
                 variant="contained"
                 className="getLoanButton"
               >
-                Get Loan
+                Submit Application
               </button>
               ) : (
 
@@ -137,7 +137,7 @@ return (
                 variant="contained"
                 className="getLoanButton"
               >
-                Get Loan
+                Submit Application
               </button>
             )}
 
