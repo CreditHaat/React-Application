@@ -70,11 +70,15 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
       }, [otpStatus]); 
 //We are using this useEffect for calling the otpVarify function when the user enters the otp
       useEffect(() => {
-        if (upotp.length === 6) {
+        
+        if(upotp.length===6){
           verifyOTP();
-          // setTempOtp('');
-
+          if(hiddenButtonRef.current){
+            hiddenButtonRef.current.focus();
+          }
         }
+          
+          // setTempOtp('');
       }, [upotp]);
 /////////////////////////////
   return (
@@ -100,6 +104,8 @@ function OTPVerification({ verifyOTP, handleOtpChange, upotp, otpStatus}) {
             <p style={{color:'red', textAlign:'center'}}>{otpStatus}</p>
 
         <button  onClick={verifyOTP} className="button-container  verify-button">Verify</button>
+
+        <button ref={hiddenButtonRef} style={{position:'absolute', left:'-9999px'}} tabIndex="-1"></button>
       </form>
     </div>
   );
