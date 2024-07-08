@@ -11,6 +11,11 @@ import ApplicationPopup from '../NewPersonalLoan/Other Components/ApplicationPop
 import ErrorPopup from '../NewPersonalLoan/Other Components/ErrorPopup';
 import OTPBottomSheet from './OTPBottomSheet';
 
+import CompanyPerformance from './CompanyPerformance';
+import Navbar from '../NewPersonalLoan/Other Components/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 
 const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate, lenderProduct, setLenderProduct, errorPopup2, setErrorPopup2, errorPopup, lenderCpi, setLenderCpi, lenderApplicationLink, setLenderApplicationLink, lender_id, setLender_id, SSO}) => {
@@ -70,7 +75,11 @@ const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate
   return (
     <>
 
+      <Navbar/>
 
+          <div className='Performanceheader' style={{marginTop:'3px', marginBottom:'15px'}}>
+            <CompanyPerformance/>
+          </div>
 
       <div>
       {json1.lender_details.map((lender, index) => (
