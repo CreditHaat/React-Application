@@ -88,7 +88,7 @@ background-color: white;
                             <center>Registered users</center>
                         </div>
                     </div>
-                    <div className="trafficbox" style={{ borderLeft: '1px solid black' }}>
+                    <div className="trafficbox" style={{ borderLeft: '2px solid #3e2780' }}>
                         <div className="row" style={{ justifyContent: 'center' }}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,7 @@ background-color: white;
                             <center>Lending Partners</center>
                         </div>
                     </div>
-                    <div className="trafficbox" style={{ borderLeft: '1px solid black' }}>
+                    <div className="trafficbox" style={{ borderLeft: '2px solid #3e2780' }}>
                         <div className="row" style={{ justifyContent: 'center' }}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

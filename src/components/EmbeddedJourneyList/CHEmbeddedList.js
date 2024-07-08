@@ -15,6 +15,7 @@ import CompanyPerformance from './CompanyPerformance';
 import Navbar from '../NewPersonalLoan/Other Components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import EmbeddedListNavbar from './EmbeddedListNavbar';
 
 
 
@@ -75,20 +76,20 @@ const LendersList = ({ json1, mobileNumber, isVisible, setIsVisible, OTPGenerate
   return (
     <>
 
-      <Navbar/>
+      <EmbeddedListNavbar/>
 
           <div className='Performanceheader' style={{marginTop:'3px', marginBottom:'15px'}}>
             <CompanyPerformance/>
           </div>
 
-      <div>
+      <div style={{padding:'10px',paddingTop:'0px'}}>
       {json1.lender_details.map((lender, index) => (
         <div key={index} className={lender.product_id} >
           <div  className="card-container">
               <div className="card-content">
               <div className="" style={{width:'50%',float:'left',margin:'auto'}}>
               <div className="text-content" style={{width:'50%',padding:'10px',margin:'auto',marginLeft:'0px'}}>
-                <img alt="logo" src={lender.logo} className="logo"  style={{display:'flex',justifyContent:'center',width:'100%',height:'auto',maxWidth:'120px',minWidth:'90px'}}/>
+                <img alt="logo" src={lender.logo} className="logo"  style={{display:'flex',justifyContent:'center',width:'100%',height:'auto',maxWidth:'60px',minWidth:'0px'}}/>
               </div>
                 </div>
                 <div className="text-content" style={{width:'50%',float:'right'}}>
